@@ -3,4 +3,4 @@
 ## UML Diagram
 Here's the UML design of my system:
 
-![UML Diagram](umi.png)
+![UML Diagram](uml.png)
