@@ -123,7 +123,7 @@ int main()
             }
             
             string content((istreambuf_iterator<char>(file)), 
-                       istreambuf_iterator<char>());
+            istreambuf_iterator<char>());
             
             crow::response res(content);
             res.set_header("Content-Type", "text/html");
