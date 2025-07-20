@@ -4,7 +4,7 @@ post logic
 */
 
 #include "User.h"
-#include "Post.h"
+#include "post.h"
 #include <functional>
 #include <algorithm>
 #include <unordered_map>
