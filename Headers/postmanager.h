@@ -12,8 +12,8 @@ private:
 
 public:
     PostManager(int _userId);
-
-    void addPost(const std::string& author, const std::string& content, const std::string& timestamp);
+    ~PostManager();
+    void addPost(int postId,const std::string& author, const std::string& content, const std::string& timestamp);
     bool deletePost(int id);
     bool sharePost(const Post& original, const std::string& newAuthor, const std::string& timestamp);
     // bool addComment(int postID, const Comment& comment);
