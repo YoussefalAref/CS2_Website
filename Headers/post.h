@@ -3,7 +3,7 @@
 #include "crow.h"
 using namespace std;
 
-class Post {
+class Post{
 public:
     int postID;
     string author;

@@ -1,9 +1,8 @@
 #include "post.h"
 #include "crow.h"
-Post::Post() {}
+Post::Post(){}
 
-Post::Post(int _authorId,int id, const string& a, const string& c, const string& t)
-    : authorID(_authorId), postID(id), author(a), content(c), timestamp(t) {}
+Post::Post(int _authorId,int id, const string& a, const string& c, const string& t): authorID(_authorId), postID(id), author(a), content(c), timestamp(t) {}
 
 // void Post::addComment(const Comment& c) {
 //     comments.push_back(c);
