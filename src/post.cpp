@@ -1,15 +1,15 @@
 #include "Posts.h"
 
-Posts::Posts() {}
+Post::Post() {}
 
-Posts::Posts(int id, const string& a, const string& c, const string& t)
+Post::Post(int id, const string& a, const string& c, const string& t)
     : postID(id), author(a), content(c), timestamp(t) {}
 
-void Posts::addComment(const Comment& c) {
+void Post::addComment(const Comment& c) {
     comments.push_back(c);
 }
 
-crow::json::wvalue Posts::toJSON() const {
+crow::json::wvalue Post::toJSON() const {
     crow::json::wvalue result;
     result["postID"] = postID;
     result["author"] = author;
@@ -24,8 +24,8 @@ crow::json::wvalue Posts::toJSON() const {
     return result;
 }
 
-Posts Posts::fromJSON(const crow::json::rvalue& data) {
-    Posts post(
+Post Post::fromJSON(const crow::json::rvalue& data) {
+    Post post(
         data["postID"].i(),
         data["author"].s(),
         data["content"].s(),
