@@ -1,13 +1,13 @@
-#include "Posts.h"
+#include "post.h"
 
 Post::Post() {}
 
 Post::Post(int id, const string& a, const string& c, const string& t)
     : postID(id), author(a), content(c), timestamp(t) {}
 
-void Post::addComment(const Comment& c) {
-    comments.push_back(c);
-}
+// void Post::addComment(const Comment& c) {
+//     comments.push_back(c);
+// }
 
 crow::json::wvalue Post::toJSON() const {
     crow::json::wvalue result;
