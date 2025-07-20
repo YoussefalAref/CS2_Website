@@ -5,7 +5,7 @@ post logic
 
 #include "User.h"
 #include "Post.h"
-#include <functional>//for the hashing function
+#include <functional>
 #include <algorithm>
 #include <unordered_map>
 #include <sstream>
@@ -13,19 +13,20 @@ post logic
 #include <crow/json.h>
 
 User::User() 
-    : username(""), email(""), hashedPassword(0), 
-    profilePicture(""), lastActive(std::chrono::system_clock::now()), 
+    : username(""), email(""), hashedPassword(0)
+    , lastActive(std::chrono::system_clock::now()), 
     isActive(true) {}
+
+    User::User(const std::string& uname, const std::string& password)
+    : username(uname), hashedPassword(hashPassword(password)) {}
 
 User::User(const std::string& uname, const std::string& password)
     : username(uname), email(""), hashedPassword(hashPassword(password)),
-    profilePicture(""),//to doooooooooooooooooooooooooooo
     lastActive(std::chrono::system_clock::now()),
     isActive(true) {}
 
 User::User(const std::string& uname, const std::string& password, const std::string& userEmail)
     : username(uname), email(userEmail), hashedPassword(hashPassword(password)),
-    profilePicture(""),//to doooooooooooooooooo
     lastActive(std::chrono::system_clock::now()),
     isActive(true) {}
 
@@ -35,9 +36,11 @@ size_t User::hashPassword(const std::string& password) {
     std::hash<std::string> hasher;
     return hasher(password);
 }
-bool User::checkPassword(const std::string& password) const{
+
+bool User::checkPassword(const std::string& password) const {
     return hashedPassword == hashPassword(password);
 }
+
 
 void User::changePassword(const std::string& oldPassword, const std::string& newPassword){
     if (checkPassword(oldPassword))
@@ -48,9 +51,6 @@ void User::setEmail(const std::string& userEmail) {
     email = userEmail;
 }
 
-void User::setProfilePicture(const std::string& pictureUrl) {
-    profilePicture = pictureUrl;
-}
 
 void User::setLastActive() {
     lastActive = std::chrono::system_clock::now();
@@ -63,7 +63,6 @@ void User::setActive(bool active) {
 // Getters
 std::string User::getUsername() const { return username; }
 std::string User::getEmail() const { return email; }
-std::string User::getProfilePicture() const { return profilePicture; }
 std::chrono::system_clock::time_point User::getLastActive() const { return lastActive; }
 bool User::getIsActive() const { return isActive; }
 size_t User::getHashedPassword() const { return hashedPassword; }
@@ -137,12 +136,23 @@ bool User::cancelSentRequest(const std::string& toUsername) {
     return true;
 }
 
+void User::addPendingRequest(const std::string& fromUsername) {
+    pendingRequests.push_back(fromUsername);
+}
+
 std::vector<std::string> User::getPendingRequests() const {
     return pendingRequests;
 }
 
 std::vector<std::string> User::getSentRequests() const {
     return sentRequests;
+}
+
+void User::removePendingRequest(const std::string& fromUsername) {
+    auto it = std::find(pendingRequests.begin(), pendingRequests.end(), fromUsername);
+    if (it != pendingRequests.end()) {
+        pendingRequests.erase(it);
+    }
 }
 
 //friend suggestions and mutial friends
@@ -161,9 +171,60 @@ std::vector<std::string> User::getMutualFriends(const User& otherUser) const{
         }
     }
     return mutualFriends;
-
 }
 
+std::vector<std::string> User::suggestFriends(const std::vector<User>& allUsers) const {
+    std::vector<std::string> suggestions;
+    std::vector<std::string> myFriends = getFriendsList();
+    
+    for (const auto& user : allUsers) {
+        // Skip if it's the same user
+        if (user.getUsername() == username) continue;
+        
+        // Skip if already friends
+        if (isFriend(user.getUsername())) continue;
+        
+        // Skip if already sent a request
+        auto sentIt = std::find(sentRequests.begin(), sentRequests.end(), user.getUsername());
+        if (sentIt != sentRequests.end()) continue;
+        
+        // Skip if there's a pending request
+        auto pendingIt = std::find(pendingRequests.begin(), pendingRequests.end(), user.getUsername());
+        if (pendingIt != pendingRequests.end()) continue;
+        
+        // Calculate mutual friends count
+        std::vector<std::string> mutualFriends = getMutualFriends(user);
+        int mutualCount = mutualFriends.size();
+        
+        // Suggest if there are mutual friends (you can adjust this threshold)
+        if (mutualCount > 0) {
+            suggestions.push_back(user.getUsername());
+        }
+    }
+    
+    // Sort by mutual friends count (descending)
+    std::sort(suggestions.begin(), suggestions.end(), 
+        [this, &allUsers](const std::string& a, const std::string& b) {
+            auto userA = std::find_if(allUsers.begin(), allUsers.end(), 
+                [&a](const User& u) { return u.getUsername() == a; });
+            auto userB = std::find_if(allUsers.begin(), allUsers.end(), 
+                [&b](const User& u) { return u.getUsername() == b; });
+            
+            if (userA == allUsers.end() || userB == allUsers.end()) return false;
+            
+            int mutualA = getMutualFriends(*userA).size();
+            int mutualB = getMutualFriends(*userB).size();
+            
+            return mutualA > mutualB;
+        });
+    
+    // Limit suggestions to top 10
+    if (suggestions.size() > 10) {
+        suggestions.resize(10);
+    }
+    
+    return suggestions;
+}
 
 //Post management
 bool comparePostsByTime(const std::shared_ptr<Post>& a, const std::shared_ptr<Post>& b) {
@@ -220,7 +281,6 @@ bool User::operator!=(const User& other) const {
     return !(*this == other);
 }
 
-
 //to and from json
 std::string User::toJson() const{
     crow::json::wvalue json;
@@ -229,7 +289,6 @@ std::string User::toJson() const{
     json["username"] = username;
     json["email"] = email;
     json["hashedPassword"] = std::to_string(hashedPassword);
-    json["profilePicture"] = profilePicture;
     json["isActive"] = isActive;
 
     auto time_t = std::chrono::system_clock::to_time_t(lastActive);//converting time to string
@@ -240,7 +299,7 @@ std::string User::toJson() const{
         json["friends"][i] = friendsList[i];
     }
 
-        for (size_t i = 0; i < pendingRequests.size(); ++i) {
+    for (size_t i = 0; i < pendingRequests.size(); ++i) {
         json["pendingRequests"][i] = pendingRequests[i];
     }
     
@@ -258,7 +317,6 @@ User User::fromJson(const std::string& jsonStr) {
     user.username = json["username"].s();
     user.email = json["email"].s();
     user.hashedPassword = std::stoull(json["hashedPassword"].s());
-    user.profilePicture = json["profilePicture"].s();
     user.isActive = json["isActive"].b();
     
     auto time_t = std::stoll(json["lastActive"].s());

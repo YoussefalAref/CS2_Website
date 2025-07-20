@@ -12,21 +12,19 @@ class Comment;
 
 class User{
 private:
-
     std::string username;
     std::string email;
     size_t hashedPassword;
-    std::string profilePicture;//path to the photo
     std::chrono::system_clock::time_point lastActive;
     bool isActive;
 
     AVLTree<std::string> friends;
-
+    
     std::vector<std::shared_ptr<Post>> userPosts;
     std::vector<std::string> pendingRequests;
     std::vector<std::string> sentRequests;
+    
     static size_t hashPassword(const std::string& password);
-
     bool addFriend(const std::string& friendUsername);//for testing user can only send a request
 
 public:
@@ -39,15 +37,12 @@ public:
     void changePassword(const std::string& oldPassword, const std::string& newPassword);
 
     void setEmail(const std::string& email);
-    void setProfilePicture(const std::string& pictureUrl);
     void setLastActive();
     void setActive(bool active);
 
-    
     //getters
     std::string getUsername() const;
     std::string getEmail() const;
-    std::string getProfilePicture() const;
     std::chrono::system_clock::time_point getLastActive() const;
     bool getIsActive() const;
     size_t getHashedPassword() const;
@@ -63,6 +58,8 @@ public:
     bool acceptFriendRequest(const std::string& fromUsername);
     bool rejectFriendRequest(const std::string& fromUsername);
     bool cancelSentRequest(const std::string& toUsername);
+    void addPendingRequest(const std::string& fromUsername);
+    void removePendingRequest(const std::string& fromUsername);
     std::vector<std::string> getPendingRequests() const;
     std::vector<std::string> getSentRequests() const;
 
