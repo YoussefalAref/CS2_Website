@@ -1,0 +1,10 @@
+^C:\USERS\KHALE\DESKTOP\CS2_WEBSITE\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/khale/Desktop/CS2_Website -BC:/Users/khale/Desktop/CS2_Website/build --check-stamp-file C:/Users/khale/Desktop/CS2_Website/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
