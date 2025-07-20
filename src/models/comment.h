@@ -4,12 +4,15 @@ using namespace std;
 
 class Comment {
 public:
-    string text;
-    string author;
-    string timestamp;
+    int commentID;
+    string content;
+    int publisherID;
+    string username;
+    int postID;
+
 
     Comment();
-    Comment(const string& t, const string& a, const string& ts);
+    Comment(const int& comId,const string& c,const int& pubId, const string& u, const int& postId);
 
     crow::json::wvalue toJSON() const;
     static Comment fromJSON(const crow::json::rvalue& data);
