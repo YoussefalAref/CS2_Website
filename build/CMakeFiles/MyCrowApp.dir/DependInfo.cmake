@@ -8,7 +8,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/youssefalaref/Desktop/CSProject/main.cpp" "CMakeFiles/MyCrowApp.dir/main.cpp.o" "gcc" "CMakeFiles/MyCrowApp.dir/main.cpp.o.d"
+  "/home/youssefalaref/Desktop/CS2_Website/main.cpp" "CMakeFiles/MyCrowApp.dir/main.cpp.o" "gcc" "CMakeFiles/MyCrowApp.dir/main.cpp.o.d"
+  "/home/youssefalaref/Desktop/CS2_Website/src/managers/AuthManager.cpp" "CMakeFiles/MyCrowApp.dir/src/managers/AuthManager.cpp.o" "gcc" "CMakeFiles/MyCrowApp.dir/src/managers/AuthManager.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

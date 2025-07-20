@@ -1,5 +1,6 @@
 #define CROW_USE_ASIO
 #include "crow.h"
+#include "src/managers/AuthManager.h"
 #include <unordered_map>
 #include <mutex>
 #include <string>
@@ -12,67 +13,6 @@
 
 using namespace std;
 namespace fs = std::filesystem;
-
-struct User {
-    string username;
-    size_t hashedPassword;
-
-    User(const string& uname, const string& password)
-        : username(uname), hashedPassword(hashPassword(password)) {}
-
-    static size_t hashPassword(const string& password) {
-        return hash<string>{}(password);
-    }
-
-    bool checkPassword(const string& password) const {
-        return hashedPassword == hashPassword(password);
-    }
-};
-
-class AuthManager {
-private:
-    unordered_map<string, User> users;
-    unordered_map<string, string> sessions;
-    mutex data_mutex;
-
-    string generateToken() {
-        stringstream ss;
-        static random_device rd;
-        static mt19937 gen(rd());
-        static uniform_int_distribution<> dis(0, 15);
-        for (int i = 0; i < 32; ++i)
-            ss << hex << dis(gen);
-        return ss.str();
-    }
-
-public:
-    bool registerUser(const string& username, const string& password) {
-        lock_guard<mutex> lock(data_mutex);
-        if (users.count(username)) return false;
-        users.emplace(username, User(username, password));
-        return true;
-    }
-
-    string loginUser(const string& username, const string& password) {
-        lock_guard<mutex> lock(data_mutex);
-        auto it = users.find(username);
-        if (it == users.end() || !it->second.checkPassword(password))
-            return "";
-
-        string token = generateToken();
-        sessions[token] = username;
-        return token;
-    }
-
-    string* getUsernameFromToken(const string& token) {
-        lock_guard<mutex> lock(data_mutex);
-        auto it = sessions.find(token);
-        if (it != sessions.end()) {
-            return &it->second;
-        }
-        return nullptr;
-    }
-};
 
 // Enhanced CORS Middleware
 struct CORSMiddleware {
@@ -114,16 +54,20 @@ int main()
 
     auto auth = std::make_shared<AuthManager>();
 
+
     // Serve HTML file for root endpoint
     CROW_ROUTE(app, "/")([] {
         try {
-            ifstream file("website_home.html");
+            std::string abs_path = "../static/website_home.html";
+            cout<<abs_path<<endl;
+            std::cout << "Current path: " << fs::current_path() << std::endl;
+            ifstream file(abs_path);
             if (!file) {
                 return crow::response(404, "website_home.html not found");
             }
             
             string content((istreambuf_iterator<char>(file)), 
-            istreambuf_iterator<char>());
+                       istreambuf_iterator<char>());
             
             crow::response res(content);
             res.set_header("Content-Type", "text/html");
@@ -189,12 +133,12 @@ int main()
         return res;
     });
 
-    // Login endpoint
+
+//login endpoint
     CROW_ROUTE(app, "/api/login").methods("POST"_method)
     ([auth](const crow::request& req) {
         crow::response res;
         res.set_header("Content-Type", "application/json");
-
 
         auto body = crow::json::load(req.body);
         crow::json::wvalue result;
@@ -218,6 +162,14 @@ int main()
                 result["avatar"] = "https://via.placeholder.com/150/1DB954/FFFFFF?text=" + username.substr(0, 1);
                 result["token"] = token;
                 res.code = 200;
+                
+                // Set cookie without Secure flag (since using HTTP)
+                res.set_header("Set-Cookie", 
+                    "token=" + token + 
+                    "; Path=/" + 
+                    "; SameSite=Strict" + 
+                    "; HttpOnly"  // No Secure flag for HTTP
+                );
             } else {
                 result["success"] = false;
                 result["message"] = "Invalid username or password";
@@ -229,7 +181,6 @@ int main()
             result["message"] = "Internal server error";
         }
 
-        
         res.write(result.dump());
         return res;
     });
@@ -239,10 +190,9 @@ int main()
     ([auth](const crow::request& req) {
         crow::response res;
 
-
         try {
-            string token = req.get_header_value("Authorization");
             
+            string token= auth->token_authentication(req);
             if (token.empty()) {
                 res.code = 401;
                 res.set_header("WWW-Authenticate", "Bearer");
@@ -279,7 +229,9 @@ int main()
 
         // Default to index.html for frontend routes
         if (filename.find('.') == string::npos) {
-            filename = "website_home.html";
+            filename = std::filesystem::absolute("static/website_home.html").string();
+        } else {
+            filename = std::filesystem::absolute("static/" + filename).string();
         }
 
         try {
