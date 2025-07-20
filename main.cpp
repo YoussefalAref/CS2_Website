@@ -1,6 +1,6 @@
 #define CROW_USE_ASIO
 #include "crow.h"
-#include "src/managers/AuthManager.h"
+#include "./src/managers/AuthManager.h"
 #include <unordered_map>
 #include <mutex>
 #include <string>
