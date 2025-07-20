@@ -1,7 +1,7 @@
-/home/youssefalaref/Desktop/CSProject/build/CMakeFiles/MyCrowApp.dir
-/home/youssefalaref/Desktop/CSProject/build/CMakeFiles/edit_cache.dir
-/home/youssefalaref/Desktop/CSProject/build/CMakeFiles/rebuild_cache.dir
-/home/youssefalaref/Desktop/CSProject/build/CMakeFiles/list_install_components.dir
-/home/youssefalaref/Desktop/CSProject/build/CMakeFiles/install.dir
-/home/youssefalaref/Desktop/CSProject/build/CMakeFiles/install/local.dir
-/home/youssefalaref/Desktop/CSProject/build/CMakeFiles/install/strip.dir
+/home/youssefalaref/Desktop/CS2_Website/build/CMakeFiles/MyCrowApp.dir
+/home/youssefalaref/Desktop/CS2_Website/build/CMakeFiles/edit_cache.dir
+/home/youssefalaref/Desktop/CS2_Website/build/CMakeFiles/rebuild_cache.dir
+/home/youssefalaref/Desktop/CS2_Website/build/CMakeFiles/list_install_components.dir
+/home/youssefalaref/Desktop/CS2_Website/build/CMakeFiles/install.dir
+/home/youssefalaref/Desktop/CS2_Website/build/CMakeFiles/install/local.dir
+/home/youssefalaref/Desktop/CS2_Website/build/CMakeFiles/install/strip.dir

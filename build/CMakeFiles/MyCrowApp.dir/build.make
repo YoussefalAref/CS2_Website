@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/youssefalaref/Desktop/CSProject
+CMAKE_SOURCE_DIR = /home/youssefalaref/Desktop/CS2_Website
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/youssefalaref/Desktop/CSProject/build
+CMAKE_BINARY_DIR = /home/youssefalaref/Desktop/CS2_Website/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/MyCrowApp.dir/depend.make
@@ -70,32 +70,48 @@ include CMakeFiles/MyCrowApp.dir/progress.make
 include CMakeFiles/MyCrowApp.dir/flags.make
 
 CMakeFiles/MyCrowApp.dir/main.cpp.o: CMakeFiles/MyCrowApp.dir/flags.make
-CMakeFiles/MyCrowApp.dir/main.cpp.o: /home/youssefalaref/Desktop/CSProject/main.cpp
+CMakeFiles/MyCrowApp.dir/main.cpp.o: /home/youssefalaref/Desktop/CS2_Website/main.cpp
 CMakeFiles/MyCrowApp.dir/main.cpp.o: CMakeFiles/MyCrowApp.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/youssefalaref/Desktop/CSProject/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/MyCrowApp.dir/main.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MyCrowApp.dir/main.cpp.o -MF CMakeFiles/MyCrowApp.dir/main.cpp.o.d -o CMakeFiles/MyCrowApp.dir/main.cpp.o -c /home/youssefalaref/Desktop/CSProject/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/youssefalaref/Desktop/CS2_Website/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/MyCrowApp.dir/main.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MyCrowApp.dir/main.cpp.o -MF CMakeFiles/MyCrowApp.dir/main.cpp.o.d -o CMakeFiles/MyCrowApp.dir/main.cpp.o -c /home/youssefalaref/Desktop/CS2_Website/main.cpp
 
 CMakeFiles/MyCrowApp.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MyCrowApp.dir/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/youssefalaref/Desktop/CSProject/main.cpp > CMakeFiles/MyCrowApp.dir/main.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/youssefalaref/Desktop/CS2_Website/main.cpp > CMakeFiles/MyCrowApp.dir/main.cpp.i
 
 CMakeFiles/MyCrowApp.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MyCrowApp.dir/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/youssefalaref/Desktop/CSProject/main.cpp -o CMakeFiles/MyCrowApp.dir/main.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/youssefalaref/Desktop/CS2_Website/main.cpp -o CMakeFiles/MyCrowApp.dir/main.cpp.s
+
+CMakeFiles/MyCrowApp.dir/src/managers/AuthManager.cpp.o: CMakeFiles/MyCrowApp.dir/flags.make
+CMakeFiles/MyCrowApp.dir/src/managers/AuthManager.cpp.o: /home/youssefalaref/Desktop/CS2_Website/src/managers/AuthManager.cpp
+CMakeFiles/MyCrowApp.dir/src/managers/AuthManager.cpp.o: CMakeFiles/MyCrowApp.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/youssefalaref/Desktop/CS2_Website/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/MyCrowApp.dir/src/managers/AuthManager.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MyCrowApp.dir/src/managers/AuthManager.cpp.o -MF CMakeFiles/MyCrowApp.dir/src/managers/AuthManager.cpp.o.d -o CMakeFiles/MyCrowApp.dir/src/managers/AuthManager.cpp.o -c /home/youssefalaref/Desktop/CS2_Website/src/managers/AuthManager.cpp
+
+CMakeFiles/MyCrowApp.dir/src/managers/AuthManager.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MyCrowApp.dir/src/managers/AuthManager.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/youssefalaref/Desktop/CS2_Website/src/managers/AuthManager.cpp > CMakeFiles/MyCrowApp.dir/src/managers/AuthManager.cpp.i
+
+CMakeFiles/MyCrowApp.dir/src/managers/AuthManager.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MyCrowApp.dir/src/managers/AuthManager.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/youssefalaref/Desktop/CS2_Website/src/managers/AuthManager.cpp -o CMakeFiles/MyCrowApp.dir/src/managers/AuthManager.cpp.s
 
 # Object files for target MyCrowApp
 MyCrowApp_OBJECTS = \
-"CMakeFiles/MyCrowApp.dir/main.cpp.o"
+"CMakeFiles/MyCrowApp.dir/main.cpp.o" \
+"CMakeFiles/MyCrowApp.dir/src/managers/AuthManager.cpp.o"
 
 # External object files for target MyCrowApp
 MyCrowApp_EXTERNAL_OBJECTS =
 
 MyCrowApp: CMakeFiles/MyCrowApp.dir/main.cpp.o
+MyCrowApp: CMakeFiles/MyCrowApp.dir/src/managers/AuthManager.cpp.o
 MyCrowApp: CMakeFiles/MyCrowApp.dir/build.make
 MyCrowApp: /usr/lib/x86_64-linux-gnu/libssl.so
 MyCrowApp: /usr/lib/x86_64-linux-gnu/libcrypto.so
 MyCrowApp: CMakeFiles/MyCrowApp.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/youssefalaref/Desktop/CSProject/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable MyCrowApp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/youssefalaref/Desktop/CS2_Website/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable MyCrowApp"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/MyCrowApp.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -107,6 +123,6 @@ CMakeFiles/MyCrowApp.dir/clean:
 .PHONY : CMakeFiles/MyCrowApp.dir/clean
 
 CMakeFiles/MyCrowApp.dir/depend:
-	cd /home/youssefalaref/Desktop/CSProject/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/youssefalaref/Desktop/CSProject /home/youssefalaref/Desktop/CSProject /home/youssefalaref/Desktop/CSProject/build /home/youssefalaref/Desktop/CSProject/build /home/youssefalaref/Desktop/CSProject/build/CMakeFiles/MyCrowApp.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd /home/youssefalaref/Desktop/CS2_Website/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/youssefalaref/Desktop/CS2_Website /home/youssefalaref/Desktop/CS2_Website /home/youssefalaref/Desktop/CS2_Website/build /home/youssefalaref/Desktop/CS2_Website/build /home/youssefalaref/Desktop/CS2_Website/build/CMakeFiles/MyCrowApp.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/MyCrowApp.dir/depend
 

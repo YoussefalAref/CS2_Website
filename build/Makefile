@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/youssefalaref/Desktop/CSProject
+CMAKE_SOURCE_DIR = /home/youssefalaref/Desktop/CS2_Website
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/youssefalaref/Desktop/CSProject/build
+CMAKE_BINARY_DIR = /home/youssefalaref/Desktop/CS2_Website/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -132,9 +132,9 @@ install/strip/fast: preinstall/fast
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/youssefalaref/Desktop/CSProject/build/CMakeFiles /home/youssefalaref/Desktop/CSProject/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/youssefalaref/Desktop/CS2_Website/build/CMakeFiles /home/youssefalaref/Desktop/CS2_Website/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/youssefalaref/Desktop/CSProject/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/youssefalaref/Desktop/CS2_Website/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -198,6 +198,30 @@ main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyCrowApp.dir/build.make CMakeFiles/MyCrowApp.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+src/managers/AuthManager.o: src/managers/AuthManager.cpp.o
+.PHONY : src/managers/AuthManager.o
+
+# target to build an object file
+src/managers/AuthManager.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyCrowApp.dir/build.make CMakeFiles/MyCrowApp.dir/src/managers/AuthManager.cpp.o
+.PHONY : src/managers/AuthManager.cpp.o
+
+src/managers/AuthManager.i: src/managers/AuthManager.cpp.i
+.PHONY : src/managers/AuthManager.i
+
+# target to preprocess a source file
+src/managers/AuthManager.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyCrowApp.dir/build.make CMakeFiles/MyCrowApp.dir/src/managers/AuthManager.cpp.i
+.PHONY : src/managers/AuthManager.cpp.i
+
+src/managers/AuthManager.s: src/managers/AuthManager.cpp.s
+.PHONY : src/managers/AuthManager.s
+
+# target to generate assembly for a file
+src/managers/AuthManager.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyCrowApp.dir/build.make CMakeFiles/MyCrowApp.dir/src/managers/AuthManager.cpp.s
+.PHONY : src/managers/AuthManager.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -214,6 +238,9 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... src/managers/AuthManager.o"
+	@echo "... src/managers/AuthManager.i"
+	@echo "... src/managers/AuthManager.s"
 .PHONY : help
 
 

@@ -13,7 +13,7 @@ find_package(OpenSSL REQUIRED)
 find_package(Threads REQUIRED)  # For pthread
 
 # Create executable
-add_executable(${PROJECT_NAME} main.cpp)
+add_executable(${PROJECT_NAME} main.cpp src/managers/AuthManager.cpp)
 
 # Link libraries (Linux-specific)
 target_link_libraries(${PROJECT_NAME} PRIVATE
