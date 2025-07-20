@@ -13,7 +13,16 @@ find_package(OpenSSL REQUIRED)
 find_package(Threads REQUIRED)  # For pthread
 
 # Create executable
-add_executable(${PROJECT_NAME} main.cpp src/managers/AuthManager.cpp)
+add_executable(${PROJECT_NAME} main.cpp
+src/AuthManager.cpp
+# src/comment.cpp
+src/DatabaseManager.cpp
+#src/FriendshipManager.cpp
+src/post.cpp
+src/postmanager.cpp
+src/User.cpp
+)
+
 
 # Link libraries (Linux-specific)
 target_link_libraries(${PROJECT_NAME} PRIVATE
@@ -31,3 +40,6 @@ target_compile_options(${PROJECT_NAME} PRIVATE
 
 # Install target (optional)
 install(TARGETS ${PROJECT_NAME} DESTINATION bin)
+
+#header files
+include_directories(${CMAKE_SOURCE_DIR}/Headers)

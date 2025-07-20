@@ -1,17 +1,21 @@
 #include "postmanager.h"
-#include "DatabaseManager.h"
+
 
 PostManager::PostManager(int _userId) : userid(_userId) {
+
     global_posts.clear();
     user_posts.clear();
-    global_posts=retrieveData("global");
+    global_posts=dbManager.retrieveData();
     for (const auto& post : global_posts) {
-        if (post.authorID == userid) {
+        if (post.getAuthorID() == userid) {
             user_posts.push_back(post);
         }
     }
 }
 
+PostManager::~PostManager() {
+    dbManager.fillData(global_posts);
+}
 
 void PostManager::addPost(int postId,const std::string& author, const std::string& content, const std::string& timestamp) {
     Post newpost(userid, postId, author, content, timestamp);
@@ -21,13 +25,13 @@ void PostManager::addPost(int postId,const std::string& author, const std::strin
 
 bool PostManager::deletePost(int id) {
     for (auto it = global_posts.begin(); it != global_posts.end(); ++it) {
-        if (it->postID == id) {
+        if (it->getPostID() == id) {
             global_posts.erase(it);
             return true;
         }
     }
     for (auto it = user_posts.begin(); it != user_posts.end(); ++it) {
-        if (it->postID == id) {
+        if (it->getPostID() == id) {
             user_posts.erase(it);
             return true;
         }
@@ -36,7 +40,7 @@ bool PostManager::deletePost(int id) {
 }
 
 bool PostManager::sharePost(const Post& original, const std::string& newAuthor, const std::string& timestamp) {
-    Post shared_post(userid, original.postID, newAuthor, original.content, original.timestamp);
+    Post shared_post(userid, original.getPostID(), newAuthor, original.getContent(), original.timestamp);
     global_posts.push_back(shared_post);
     user_posts.push_back(shared_post);
     return true;

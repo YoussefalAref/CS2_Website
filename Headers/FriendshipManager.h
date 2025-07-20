@@ -4,8 +4,8 @@
 #include <string>
 #include <vector>
 #include <memory>
-#include "../models/User.h"
-#include "../models/AVLTree.h"
+#include "User.h"
+#include "AVLTree.h"
 
 class FriendshipManager{
 private:

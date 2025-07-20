@@ -1,19 +1,35 @@
+#pragma once
 #include <string>
 #include <vector>
 #include "crow.h"
 using namespace std;
 
 class Post{
-public:
+private:
     int postID;
     string author;
     string content;
-    string timestamp;
     int authorID;
     // vector<Comment> comments;
 
+public:
+
+    string timestamp;
+
     Post();
-    Post(int _authorId,int id, const string& a, const string& c, const string& t);
+    Post(int _authorId,int id, const string& a, const string& c,const string& t="");
+
+    // void setPostID(int id);
+    // void setAuthor(string username);
+    // void setContent(string cont);
+    // void setAuthorID(int id);
+
+    int getPostID()const;
+    string getAuthor()const;
+    string getContent()const;
+    int getAuthorID()const;
+
+    
 
     
     // void addComment(const Comment& c);

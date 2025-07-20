@@ -1,8 +1,30 @@
+#include <chrono>
+#include <iomanip>
+#include <sstream>
 #include "post.h"
 #include "crow.h"
-Post::Post(){}
+using namespace std;
 
-Post::Post(int _authorId,int id, const string& a, const string& c, const string& t): authorID(_authorId), postID(id), author(a), content(c), timestamp(t) {}
+
+Post::Post(){}
+Post::Post(int _authorId,int id, const string& a, const string& c, const string& t)
+:authorID(_authorId), postID(id), author(a), content(c){
+    if (t.empty()) {
+        // Auto-generate timestamp if none provided
+        auto now = chrono::system_clock::now();
+        time_t now_time = chrono::system_clock::to_time_t(now);
+        stringstream ss;
+        ss << put_time(localtime(&now_time), "%Y-%m-%d %H:%M:%S");
+        timestamp = ss.str();
+    } else {
+        timestamp = t;
+    }
+}
+
+int Post::getPostID()const{return postID;}   
+string Post::getAuthor()const{return author;}
+string Post::getContent()const{return content;}
+int Post::getAuthorID()const{return authorID;}
 
 // void Post::addComment(const Comment& c) {
 //     comments.push_back(c);
@@ -46,14 +68,14 @@ Post::Post(int _authorId,int id, const string& a, const string& c, const string&
 
 
 
-// CROW_ROUTE(app, "/sharepost").methods("POST"_method)([](const crow::request& req) {
-//     auto body = crow::json::load(req.body);
-//     if (!body) return crow::response(400, "Invalid JSON");
+// // CROW_ROUTE(app, "/sharepost").methods("POST"_method)([](const crow::request& req) {
+// //     auto body = crow::json::load(req.body);
+// //     if (!body) return crow::response(400, "Invalid JSON");
 
-//     Post original = Post::fromJSON(body["originalPost"]);
-//     std::string newAuthor = body["newAuthor"].s();
-//     std::string timestamp = body["timestamp"].s();
+// //     Post original = Post::fromJSON(body["originalPost"]);
+// //     std::string newAuthor = body["newAuthor"].s();
+// //     std::string timestamp = body["timestamp"].s();
 
-//     postManager.sharePost(original, newAuthor, timestamp);
-//     return crow::response(200, "Post shared");
-// });
+// //     postManager.sharePost(original, newAuthor, timestamp);
+// //     return crow::response(200, "Post shared");
+// // });

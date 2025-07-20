@@ -1,15 +1,16 @@
+#pragma once
 #include <vector>
 #include <string>
 #include "post.h"
 #include "crow.h"
-
+#include "DatabaseManager.h"
 
 class PostManager {
 private:
     std::vector<Post> global_posts;
     std::vector<Post> user_posts;
     int userid;
-
+    file dbManager;
 public:
     PostManager(int _userId);
     ~PostManager();
@@ -20,4 +21,5 @@ public:
     const std::vector<Post>& getAllPosts() const;
     Post* getPostById(int id);
     crow::json::wvalue toJSON() const; 
+    
 };

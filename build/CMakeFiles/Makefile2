@@ -54,10 +54,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/youssefalaref/Desktop/CS2_Website
+CMAKE_SOURCE_DIR = /home/janayasser/Desktop/Repos/CS2_Website
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/youssefalaref/Desktop/CS2_Website/build
+CMAKE_BINARY_DIR = /home/janayasser/Desktop/Repos/CS2_Website/build
 
 #=============================================================================
 # Directory level rules for the build root directory
@@ -81,14 +81,14 @@ clean: CMakeFiles/MyCrowApp.dir/clean
 CMakeFiles/MyCrowApp.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyCrowApp.dir/build.make CMakeFiles/MyCrowApp.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyCrowApp.dir/build.make CMakeFiles/MyCrowApp.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/youssefalaref/Desktop/CS2_Website/build/CMakeFiles --progress-num=1,2,3 "Built target MyCrowApp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/janayasser/Desktop/Repos/CS2_Website/build/CMakeFiles --progress-num=1,2,3,4,5,6,7 "Built target MyCrowApp"
 .PHONY : CMakeFiles/MyCrowApp.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/MyCrowApp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/youssefalaref/Desktop/CS2_Website/build/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/janayasser/Desktop/Repos/CS2_Website/build/CMakeFiles 7
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/MyCrowApp.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/youssefalaref/Desktop/CS2_Website/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/janayasser/Desktop/Repos/CS2_Website/build/CMakeFiles 0
 .PHONY : CMakeFiles/MyCrowApp.dir/rule
 
 # Convenience name for target.

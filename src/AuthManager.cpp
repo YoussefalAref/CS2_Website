@@ -2,16 +2,16 @@
 #include <random>
 #include <sstream>
 
-User::User(const std::string& uname, const std::string& password)
-    : username(uname), hashedPassword(hashPassword(password)) {}
+// User::User(const std::string& uname, const std::string& password)
+//     : username(uname), hashedPassword(hashPassword(password)) {}
 
-size_t User::hashPassword(const std::string& password) {
-    return std::hash<std::string>{}(password);
-}
+// size_t User::hashPassword(const std::string& password) {
+//     return std::hash<std::string>{}(password);
+// }
 
-bool User::checkPassword(const std::string& password) const {
-    return hashedPassword == hashPassword(password);
-}
+// bool User::checkPassword(const std::string& password) const {
+//     return hashedPassword == hashPassword(password);
+// }
 
 std::string AuthManager::generateToken() {
     std::stringstream ss;
@@ -23,10 +23,10 @@ std::string AuthManager::generateToken() {
     return ss.str();
 }
 
-bool AuthManager::registerUser(const std::string& username, const std::string& password) {
+bool AuthManager::registerUser(int _userId,const std::string& uname, const std::string& password, const std::string& userEmail) {
     std::lock_guard<std::mutex> lock(data_mutex);
-    if (users.count(username)) return false;
-    users.emplace(username, User(username, password));
+    if (users.count(uname)) return false;
+    users.emplace(uname, User(_userId,uname,password,userEmail));
     return true;
 }
 
@@ -46,9 +46,10 @@ std::string AuthManager::token_authentication(const crow::request& req) {
 std::string AuthManager::loginUser(const std::string& username, const std::string& password) {
     std::lock_guard<std::mutex> lock(data_mutex);
     auto it = users.find(username);
-    if (it == users.end() || !it->second.checkPassword(password))
+    if (it == users.end() || !it->second.checkPassword(password)){
         return "";
-
+    }
+    cout<<"User logged in: " << users[username].getEmail() << endl;
     std::string token = generateToken();
     sessions[token] = username;
     return token;

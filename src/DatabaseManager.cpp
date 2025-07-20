@@ -10,7 +10,7 @@ vector<Post> file:: retrieveData() const{
 
     vector<Post> posts;
 
-    filesystem::path file_path = filesystem::absolute("posts.csv");
+    filesystem::path file_path = filesystem::absolute("../txtFiles/posts.csv");
     ifstream txtFile(file_path);
 
      if (!txtFile.is_open()) {
@@ -50,28 +50,28 @@ while(getline(txtFile,line)){
     return posts;
 }
 
-void file::fillData(const vector<Post>& post){
-    filesystem::path file_path = filesystem::absolute("posts.csv");
+void file::fillData(const vector<Post>& posts){
+    filesystem::path file_path = filesystem::absolute("../textFiles/posts.csv");
     ofstream txtFile(file_path);
     if (!txtFile.is_open()) {
         cerr << "Error opening file for writing\n";
         return;
     }
-    for(const auto& po : post){
-            txtFile<< po.authorID << "|"<< po.postID << "|"<< po.author << "|"<< po.content << "|"<< po.timestamp << "\n";
+    for(const Post& po : posts){
+            txtFile<< po.getAuthorID() << "|"<< po.getPostID() << "|"<< po.getAuthor() << "|"<< po.getContent() << "|"<< po.timestamp << "\n";
     }
     txtFile.close();
 }
 
 void file::insertData(const Post& post){
-    filesystem::path file_path = filesystem::absolute("posts.csv");
+    filesystem::path file_path = filesystem::absolute("../txtFiles/posts.csv");
     ofstream txtFile(file_path, ios::app);
      if (!txtFile.is_open()) {
         cerr << "Error opening file for appending\n";
         return;
     }
-    // Write pipe-separated values
-    txtFile<< post.authorID << "|"<< post.postID << "|"<< post.author << "|"<< post.content << "|"<< post.timestamp << "\n";
+
+    txtFile<< post.getAuthorID() << "|"<< post.getPostID() << "|"<< post.getAuthor() << "|"<< post.getContent() << "|"<< post.timestamp << "\n";
     
     txtFile.close();
 }

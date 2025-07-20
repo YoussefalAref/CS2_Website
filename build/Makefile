@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/youssefalaref/Desktop/CS2_Website
+CMAKE_SOURCE_DIR = /home/janayasser/Desktop/Repos/CS2_Website
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/youssefalaref/Desktop/CS2_Website/build
+CMAKE_BINARY_DIR = /home/janayasser/Desktop/Repos/CS2_Website/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -132,9 +132,9 @@ install/strip/fast: preinstall/fast
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/youssefalaref/Desktop/CS2_Website/build/CMakeFiles /home/youssefalaref/Desktop/CS2_Website/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/janayasser/Desktop/Repos/CS2_Website/build/CMakeFiles /home/janayasser/Desktop/Repos/CS2_Website/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/youssefalaref/Desktop/CS2_Website/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/janayasser/Desktop/Repos/CS2_Website/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -198,29 +198,125 @@ main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyCrowApp.dir/build.make CMakeFiles/MyCrowApp.dir/main.cpp.s
 .PHONY : main.cpp.s
 
-src/managers/AuthManager.o: src/managers/AuthManager.cpp.o
-.PHONY : src/managers/AuthManager.o
+src/AuthManager.o: src/AuthManager.cpp.o
+.PHONY : src/AuthManager.o
 
 # target to build an object file
-src/managers/AuthManager.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyCrowApp.dir/build.make CMakeFiles/MyCrowApp.dir/src/managers/AuthManager.cpp.o
-.PHONY : src/managers/AuthManager.cpp.o
+src/AuthManager.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyCrowApp.dir/build.make CMakeFiles/MyCrowApp.dir/src/AuthManager.cpp.o
+.PHONY : src/AuthManager.cpp.o
 
-src/managers/AuthManager.i: src/managers/AuthManager.cpp.i
-.PHONY : src/managers/AuthManager.i
+src/AuthManager.i: src/AuthManager.cpp.i
+.PHONY : src/AuthManager.i
 
 # target to preprocess a source file
-src/managers/AuthManager.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyCrowApp.dir/build.make CMakeFiles/MyCrowApp.dir/src/managers/AuthManager.cpp.i
-.PHONY : src/managers/AuthManager.cpp.i
+src/AuthManager.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyCrowApp.dir/build.make CMakeFiles/MyCrowApp.dir/src/AuthManager.cpp.i
+.PHONY : src/AuthManager.cpp.i
 
-src/managers/AuthManager.s: src/managers/AuthManager.cpp.s
-.PHONY : src/managers/AuthManager.s
+src/AuthManager.s: src/AuthManager.cpp.s
+.PHONY : src/AuthManager.s
 
 # target to generate assembly for a file
-src/managers/AuthManager.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyCrowApp.dir/build.make CMakeFiles/MyCrowApp.dir/src/managers/AuthManager.cpp.s
-.PHONY : src/managers/AuthManager.cpp.s
+src/AuthManager.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyCrowApp.dir/build.make CMakeFiles/MyCrowApp.dir/src/AuthManager.cpp.s
+.PHONY : src/AuthManager.cpp.s
+
+src/DatabaseManager.o: src/DatabaseManager.cpp.o
+.PHONY : src/DatabaseManager.o
+
+# target to build an object file
+src/DatabaseManager.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyCrowApp.dir/build.make CMakeFiles/MyCrowApp.dir/src/DatabaseManager.cpp.o
+.PHONY : src/DatabaseManager.cpp.o
+
+src/DatabaseManager.i: src/DatabaseManager.cpp.i
+.PHONY : src/DatabaseManager.i
+
+# target to preprocess a source file
+src/DatabaseManager.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyCrowApp.dir/build.make CMakeFiles/MyCrowApp.dir/src/DatabaseManager.cpp.i
+.PHONY : src/DatabaseManager.cpp.i
+
+src/DatabaseManager.s: src/DatabaseManager.cpp.s
+.PHONY : src/DatabaseManager.s
+
+# target to generate assembly for a file
+src/DatabaseManager.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyCrowApp.dir/build.make CMakeFiles/MyCrowApp.dir/src/DatabaseManager.cpp.s
+.PHONY : src/DatabaseManager.cpp.s
+
+src/User.o: src/User.cpp.o
+.PHONY : src/User.o
+
+# target to build an object file
+src/User.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyCrowApp.dir/build.make CMakeFiles/MyCrowApp.dir/src/User.cpp.o
+.PHONY : src/User.cpp.o
+
+src/User.i: src/User.cpp.i
+.PHONY : src/User.i
+
+# target to preprocess a source file
+src/User.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyCrowApp.dir/build.make CMakeFiles/MyCrowApp.dir/src/User.cpp.i
+.PHONY : src/User.cpp.i
+
+src/User.s: src/User.cpp.s
+.PHONY : src/User.s
+
+# target to generate assembly for a file
+src/User.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyCrowApp.dir/build.make CMakeFiles/MyCrowApp.dir/src/User.cpp.s
+.PHONY : src/User.cpp.s
+
+src/post.o: src/post.cpp.o
+.PHONY : src/post.o
+
+# target to build an object file
+src/post.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyCrowApp.dir/build.make CMakeFiles/MyCrowApp.dir/src/post.cpp.o
+.PHONY : src/post.cpp.o
+
+src/post.i: src/post.cpp.i
+.PHONY : src/post.i
+
+# target to preprocess a source file
+src/post.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyCrowApp.dir/build.make CMakeFiles/MyCrowApp.dir/src/post.cpp.i
+.PHONY : src/post.cpp.i
+
+src/post.s: src/post.cpp.s
+.PHONY : src/post.s
+
+# target to generate assembly for a file
+src/post.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyCrowApp.dir/build.make CMakeFiles/MyCrowApp.dir/src/post.cpp.s
+.PHONY : src/post.cpp.s
+
+src/postmanager.o: src/postmanager.cpp.o
+.PHONY : src/postmanager.o
+
+# target to build an object file
+src/postmanager.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyCrowApp.dir/build.make CMakeFiles/MyCrowApp.dir/src/postmanager.cpp.o
+.PHONY : src/postmanager.cpp.o
+
+src/postmanager.i: src/postmanager.cpp.i
+.PHONY : src/postmanager.i
+
+# target to preprocess a source file
+src/postmanager.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyCrowApp.dir/build.make CMakeFiles/MyCrowApp.dir/src/postmanager.cpp.i
+.PHONY : src/postmanager.cpp.i
+
+src/postmanager.s: src/postmanager.cpp.s
+.PHONY : src/postmanager.s
+
+# target to generate assembly for a file
+src/postmanager.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyCrowApp.dir/build.make CMakeFiles/MyCrowApp.dir/src/postmanager.cpp.s
+.PHONY : src/postmanager.cpp.s
 
 # Help Target
 help:
@@ -238,9 +334,21 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
-	@echo "... src/managers/AuthManager.o"
-	@echo "... src/managers/AuthManager.i"
-	@echo "... src/managers/AuthManager.s"
+	@echo "... src/AuthManager.o"
+	@echo "... src/AuthManager.i"
+	@echo "... src/AuthManager.s"
+	@echo "... src/DatabaseManager.o"
+	@echo "... src/DatabaseManager.i"
+	@echo "... src/DatabaseManager.s"
+	@echo "... src/User.o"
+	@echo "... src/User.i"
+	@echo "... src/User.s"
+	@echo "... src/post.o"
+	@echo "... src/post.i"
+	@echo "... src/post.s"
+	@echo "... src/postmanager.o"
+	@echo "... src/postmanager.i"
+	@echo "... src/postmanager.s"
 .PHONY : help
 
 

@@ -1,6 +1,6 @@
 #define CROW_USE_ASIO
 #include "crow.h"
-#include "./src/managers/AuthManager.h"
+#include "./Headers/AuthManager.h"
 #include <unordered_map>
 #include <mutex>
 #include <string>
@@ -110,7 +110,8 @@ int main()
         try {
             std::string username = body["username"].s();
             std::string password = body["password"].s();
-            bool success = auth->registerUser(username, password);
+            int _userId = auth->users.size();
+            bool success = auth->registerUser(_userId,username,password,"a@gmail.com");
 
             if (success) {
                 result["success"] = true;
