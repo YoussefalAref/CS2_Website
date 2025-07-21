@@ -11,6 +11,7 @@ post logic
 #include <sstream>
 #include <fstream>
 #include <crow/json.h>
+#include "AVLTree.h"
 
 User::User(int _userId, const std::string& uname, const std::string& password)
     : userId(_userId), username(uname), hashedPassword(hashPassword(password)),
@@ -28,7 +29,19 @@ bool User::checkPassword(const std::string& password) const {
     return hashedPassword == hashPassword(password);
 }
 
+void User::addfriend(User* friendName) {
+    if (friendName && friendName->getUsername() != username) {
+        friendsAVL.addFriend(friendName->getUsername());
+    }
+}
 
+bool User::hasFriend(const std::string& username) {
+    return friendsAVL.isfriend(username);
+}
+
+void User::displayFriends() const {
+    friendsAVL.showAllFriends();
+}
 // void User::changePassword(const std::string& oldPassword, const std::string& newPassword){
 //     if (checkPassword(oldPassword))
 //         hashedPassword = hashPassword(newPassword);

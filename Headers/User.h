@@ -33,6 +33,9 @@ public:
     ~User();
     User(): postmanager(0) {} // Default constructor for empty user;
     bool checkPassword(const std::string& password) const;
+    void addfriend(User* friendName);
+    bool hasFriend(const std::string& username);
+    void displayFriends() const;
 //     void changePassword(const std::string& oldPassword, const std::string& newPassword);
 
 //     void setEmail(const std::string& email);

@@ -86,3 +86,71 @@ void file::insertData(const Post& post){
 
 
 //users:
+ap<int, User> file::retrieveUsers() const {
+    map<int, User> users;
+    filesystem::path file_path = filesystem::absolute("../textFiles/users.csv");
+    ifstream txtFile(file_path);
+
+    if (!txtFile.is_open()) {
+        cerr << "Error opening file for reading\n";
+        return users;
+    }
+
+    string line;
+    while (getline(txtFile, line)) {
+        if (line.empty()) continue;
+        vector<string> fields;
+        istringstream lineStream(line);
+        string field;
+
+        while (getline(lineStream, field, '|')) {
+            fields.push_back(field);
+        }
+
+        if (fields.size() < 4) {
+            cerr << "Invalid line format: " << line << endl;
+            continue;
+        }
+
+        try {
+            int userId = stoi(fields[0]);
+            string username = fields[1];
+            string email = fields[2];
+            size_t hashedPassword = stoull(fields[3]);
+            users.emplace(userId, User(userId, username, hashedPassword, email));
+        } catch (const exception& e) {
+            cerr << "Error processing line: " << line << " - " << e.what() << endl;
+        }
+    }
+
+    txtFile.close();
+    return users;
+}
+
+void file::fillUsers(const map<int, User>& users) {
+    filesystem::path file_path = filesystem::absolute("../textFiles/users.csv");
+    ofstream txtFile(file_path);
+    if (!txtFile.is_open()) {
+        cerr << "Error opening file for writing\n";
+        return;
+    }
+
+    for (const auto& [userId, user] : users) {
+        txtFile << userId << "|" << user.getUsername() << "|" << user.getEmail() << "|" << user.getHashedPassword() << "\n";
+    }
+
+    txtFile.close();
+}
+
+void file::insertUser(const User& user) {
+    filesystem::path file_path = filesystem::absolute("../textFiles/users.csv");
+    ofstream txtFile(file_path, ios::app);
+    if (!txtFile.is_open()) {
+        cerr << "Error opening file for appending\n";
+        return;
+    }
+
+    txtFile << user.getUserId() << "|" << user.getUsername() << "|" << user.getEmail() << "|" << user.getHashedPassword() << "\n";
+    
+    txtFile.close();
+}

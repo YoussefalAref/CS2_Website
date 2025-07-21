@@ -7,6 +7,10 @@
 #include <filesystem>
 #include "crow.h"
 #include "post.h"
+#include "User.h"
+#include <map>
+#include <sstream
+
 using namespace std;
 
 class file{
@@ -21,5 +25,9 @@ class file{
         void fillData(const vector<Post>& posts);
         // Appends a single post to the CSV file, including all attributes.
         void insertData(const Post& p);
+        map<int, User> retrieveUsers() const;
+        void fillUsers(const map<int, User>& users);
+        void insertUser(const User& user);
+
         file(){}
 };
