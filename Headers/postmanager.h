@@ -14,9 +14,9 @@ private:
 public:
     PostManager(int _userId);
     ~PostManager();
-    void addPost(int postId,const std::string& author, const std::string& content, const std::string& timestamp);
+    void addPost(int postId, const std::string& author, const std::string& content, int likesNo);
     bool deletePost(int id);
-    bool sharePost(const Post& original, const std::string& newAuthor, const std::string& timestamp);
+    bool sharePost(const Post& original, const std::string& newAuthor, int likesNo);
     // bool addComment(int postID, const Comment& comment);
     const std::vector<Post>& getAllPosts() const;
     Post* getPostById(int id);

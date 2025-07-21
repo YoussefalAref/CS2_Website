@@ -87,7 +87,7 @@ int main()
         crow::response res;
         res.set_header("Content-Type", "application/json");
         
-
+    
         auto body = crow::json::load(req.body);
         crow::json::wvalue result;
         
@@ -110,8 +110,7 @@ int main()
         try {
             std::string username = body["username"].s();
             std::string password = body["password"].s();
-            int _userId = auth->users.size();
-            bool success = auth->registerUser(_userId,username,password,"a@gmail.com");
+            bool success = auth->registerUser(username,password);
 
             if (success) {
                 result["success"] = true;
@@ -154,7 +153,7 @@ int main()
 
         try {
             std::string username = body["username"].s();
-            std::string password = body["password"].s();
+            std::string password = body["password"].s();            
             string token = auth->loginUser(username, password);
 
             if (!token.empty()) {

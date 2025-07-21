@@ -14,29 +14,24 @@ class Comment;
 class User{
 private:
     std::string username;
-    std::string email;
     size_t hashedPassword;
     std::chrono::system_clock::time_point lastActive;
     bool isActive;
 
     AVLTree<std::string> friends;
-    
     std::vector<std::shared_ptr<Post>> userPosts;
     std::vector<std::string> pendingRequests;
     std::vector<std::string> sentRequests;
-    
+
     static size_t hashPassword(const std::string& password);
     bool addFriend(const std::string& friendUsername);//for testing user can only send a request
     PostManager postmanager;
     int userId;
 
 public:
-    string getEmail() const { return email; }
-    User(int _userId, const std::string& uname, const std::string& password, const std::string& userEmail);
+    User(int _userId, const std::string& uname, const std::string& password);
     ~User();
-    //postmanager has a value that doesnt express user id
     User(): postmanager(0) {} // Default constructor for empty user;
-    
     bool checkPassword(const std::string& password) const;
 //     void changePassword(const std::string& oldPassword, const std::string& newPassword);
 

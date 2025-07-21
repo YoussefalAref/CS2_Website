@@ -1,17 +1,13 @@
 #include "AuthManager.h"
+#include "DatabaseManager.h"
 #include <random>
 #include <sstream>
 
-// User::User(const std::string& uname, const std::string& password)
-//     : username(uname), hashedPassword(hashPassword(password)) {}
 
-// size_t User::hashPassword(const std::string& password) {
-//     return std::hash<std::string>{}(password);
-// }
-
-// bool User::checkPassword(const std::string& password) const {
-//     return hashedPassword == hashPassword(password);
-// }
+AuthManager::AuthManager(){
+    file dbManager();
+    // fill the users data in the map to authenticate the users
+}
 
 std::string AuthManager::generateToken() {
     std::stringstream ss;
@@ -23,10 +19,12 @@ std::string AuthManager::generateToken() {
     return ss.str();
 }
 
-bool AuthManager::registerUser(int _userId,const std::string& uname, const std::string& password, const std::string& userEmail) {
+
+bool AuthManager::registerUser(const std::string& uname, const std::string& password) {
     std::lock_guard<std::mutex> lock(data_mutex);
     if (users.count(uname)) return false;
-    users.emplace(uname, User(_userId,uname,password,userEmail));
+    int newId = users.size();
+    users.emplace(uname, User(newId, uname, password));
     return true;
 }
 
@@ -49,11 +47,11 @@ std::string AuthManager::loginUser(const std::string& username, const std::strin
     if (it == users.end() || !it->second.checkPassword(password)){
         return "";
     }
-    cout<<"User logged in: " << users[username].getEmail() << endl;
     std::string token = generateToken();
     sessions[token] = username;
     return token;
 }
+
 
 std::string* AuthManager::getUsernameFromToken(const std::string& token) {
     std::lock_guard<std::mutex> lock(data_mutex);

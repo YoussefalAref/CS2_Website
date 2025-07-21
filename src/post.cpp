@@ -7,35 +7,43 @@ using namespace std;
 
 
 Post::Post(){}
-Post::Post(int _authorId,int id, const string& a, const string& c, const string& t)
-:authorID(_authorId), postID(id), author(a), content(c){
-    if (t.empty()) {
-        // Auto-generate timestamp if none provided
-        auto now = chrono::system_clock::now();
-        time_t now_time = chrono::system_clock::to_time_t(now);
-        stringstream ss;
-        ss << put_time(localtime(&now_time), "%Y-%m-%d %H:%M:%S");
-        timestamp = ss.str();
-    } else {
-        timestamp = t;
-    }
-}
+Post::Post(int _authorId,int _postid, const string& a, const string& c,int _likesNo)
+:authorID(_authorId), postID(_postid), author(a), content(c),likesNO(_likesNo){}
 
 int Post::getPostID()const{return postID;}   
 string Post::getAuthor()const{return author;}
 string Post::getContent()const{return content;}
 int Post::getAuthorID()const{return authorID;}
+int Post::getLikesNo()const { return likesNO; }
 
-// void Post::addComment(const Comment& c) {
-//     comments.push_back(c);
-// }
+void Post::setPostID(int id) { postID = id; }
+void Post::setAuthor(string username) { author = username; }
+void Post::setContent(string cont) { content = cont; }
+void Post::setAuthorID(int id) { authorID = id; }
+void Post::setLikesNo(int likes) { likesNO = likes; }
+
+
+void Post::addComment(const Comment& c) {
+    comments.push_back(c);
+}
+
+bool Post::deleteComment(int commentId) {
+    auto it = std::remove_if(comments.begin(), comments.end(), [&](const Comment& c) {
+        return c.commentId == commentId;
+    });
+    if (it != comments.end()) {
+        comments.erase(it, comments.end());
+        return true;
+    }
+    return false;
+}
 
 // crow::json::wvalue Post::toJSON() const {
 //     crow::json::wvalue result;
 //     result["postID"] = postID;
 //     result["author"] = author;
 //     result["content"] = content;
-//     result["timestamp"] = timestamp;
+//     // result["timestamp"] = timestamp; // removed: no timestamp in Comment
 
 //     // int index = 0;
 //     // for (const auto& comment : comments) {
@@ -50,7 +58,7 @@ int Post::getAuthorID()const{return authorID;}
 //         data["postID"].i(),
 //         data["author"].s(),
 //         data["content"].s(),
-//         data["timestamp"].s()
+//         // data["timestamp"].s() // removed: no timestamp in Comment
 //     );
 
 //     if (data.has("comments")) {
@@ -74,8 +82,8 @@ int Post::getAuthorID()const{return authorID;}
 
 // //     Post original = Post::fromJSON(body["originalPost"]);
 // //     std::string newAuthor = body["newAuthor"].s();
-// //     std::string timestamp = body["timestamp"].s();
+// //     // std::string timestamp = body["timestamp"].s(); // removed: no timestamp in Comment
 
-// //     postManager.sharePost(original, newAuthor, timestamp);
+// //     postManager.sharePost(original, newAuthor); // removed: no timestamp in Comment
 // //     return crow::response(200, "Post shared");
 // // });

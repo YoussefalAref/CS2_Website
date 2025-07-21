@@ -17,8 +17,8 @@ PostManager::~PostManager() {
     dbManager.fillData(global_posts);
 }
 
-void PostManager::addPost(int postId,const std::string& author, const std::string& content, const std::string& timestamp) {
-    Post newpost(userid, postId, author, content, timestamp);
+void PostManager::addPost(int postId, const std::string& author, const std::string& content, int likesNo) {
+    Post newpost(userid, postId, author, content, likesNo);
     global_posts.push_back(newpost);
     user_posts.push_back(newpost);
 }
@@ -39,8 +39,8 @@ bool PostManager::deletePost(int id) {
     return false;
 }
 
-bool PostManager::sharePost(const Post& original, const std::string& newAuthor, const std::string& timestamp) {
-    Post shared_post(userid, original.getPostID(), newAuthor, original.getContent(), original.timestamp);
+bool PostManager::sharePost(const Post& original, const std::string& newAuthor, int likesNo) {
+    Post shared_post(userid, original.getPostID(), newAuthor, original.getContent(), likesNo);
     global_posts.push_back(shared_post);
     user_posts.push_back(shared_post);
     return true;

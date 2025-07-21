@@ -15,8 +15,11 @@ class file{
         return filesystem::absolute("posts.csv");
         }
     public:
-        vector<Post> retrieveData()const;
-        void fillData(const vector<Post>& post);
+        // Retrieves all posts from the CSV file. Each post includes authorId, postId, author, content, likesNo.
+        vector<Post> retrieveData() const;
+        // Writes all posts to the CSV file, including all attributes.
+        void fillData(const vector<Post>& posts);
+        // Appends a single post to the CSV file, including all attributes.
         void insertData(const Post& p);
         file(){}
 };

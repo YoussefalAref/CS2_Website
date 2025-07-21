@@ -12,9 +12,10 @@ post logic
 #include <fstream>
 #include <crow/json.h>
 
-User::User(int _userId,const std::string& uname, const std::string& password, const std::string& userEmail):userId(_userId), username(uname), email(userEmail), hashedPassword(hashPassword(password)),
-    lastActive(std::chrono::system_clock::now()),
-    isActive(true), postmanager(_userId){}
+User::User(int _userId, const std::string& uname, const std::string& password)
+    : userId(_userId), username(uname), hashedPassword(hashPassword(password)),
+      lastActive(std::chrono::system_clock::now()),
+      isActive(true), postmanager(_userId){}
 
 User::~User() {}
 
@@ -34,7 +35,7 @@ bool User::checkPassword(const std::string& password) const {
 // }
 
 // void User::setEmail(const std::string& userEmail) {
-//     email = userEmail;
+//     // email removed
 // }
 
 
@@ -48,7 +49,7 @@ bool User::checkPassword(const std::string& password) const {
 
 // // Getters
 // std::string User::getUsername() const { return username; }
-// std::string User::getEmail() const { return email; }
+// std::string User::getEmail() const { return ""; } // email removed
 // std::chrono::system_clock::time_point User::getLastActive() const { return lastActive; }
 // bool User::getIsActive() const { return isActive; }
 // size_t User::getHashedPassword() const { return hashedPassword; }
@@ -273,7 +274,7 @@ bool User::checkPassword(const std::string& password) const {
 
 //     //user info
 //     json["username"] = username;
-//     json["email"] = email;
+//     // json["email"] = email; // email removed
 //     json["hashedPassword"] = std::to_string(hashedPassword);
 //     json["isActive"] = isActive;
 
@@ -301,7 +302,7 @@ bool User::checkPassword(const std::string& password) const {
     
 //     User user;
 //     user.username = json["username"].s();
-//     user.email = json["email"].s();
+//     // user.email = json["email"].s(); // email removed
 //     user.hashedPassword = std::stoull(json["hashedPassword"].s());
 //     user.isActive = json["isActive"].b();
     

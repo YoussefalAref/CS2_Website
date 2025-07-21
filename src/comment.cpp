@@ -1,9 +1,10 @@
 #include "comment.h"
 
+
 Comment::Comment() {}
 
-Comment::Comment(const int& comId,const string& c,const int& pubId, const string& u, const int& postId)
-    : commentID(comId),content(c),publisherID(pubId),username(u),postID(postId){}
+Comment::Comment(int comId, const std::string& c, int authId, int postId)
+    : commentId(comId), content(c), authorId(authId), parentPostId(postId) {}
 
 /*crow::json::wvalue Comment::toJSON() const {
     crow::json::wvalue result;

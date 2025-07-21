@@ -30,20 +30,19 @@ while(getline(txtFile,line)){
     }
 
     if (fields.size() < 5) {
-            cerr << "Invalid line format: " << line << endl;
-            continue;
-        }
-        
-        try {
-            int authorId = stoi(fields[0]);
-            int postId = stoi(fields[1]);
-            string author = fields[2];
-            string content = fields[3];
-            string timestamp = fields[4];
-            posts.emplace_back(authorId, postId, author, content, timestamp);
-        } catch (const exception& e) {
-            cerr << "Error processing line: " << line << " - " << e.what() << endl;
-        }
+        cerr << "Invalid line format: " << line << endl;
+        continue;
+    }
+    try {
+        int authorId = stoi(fields[0]);
+        int postId = stoi(fields[1]);
+        string author = fields[2];
+        string content = fields[3];
+        int likesNo = stoi(fields[4]);
+        posts.emplace_back(authorId, postId, author, content, likesNo);
+    } catch (const exception& e) {
+        cerr << "Error processing line: " << line << " - " << e.what() << endl;
+    }
     }
 
     txtFile.close();
@@ -58,7 +57,11 @@ void file::fillData(const vector<Post>& posts){
         return;
     }
     for(const Post& po : posts){
-            txtFile<< po.getAuthorID() << "|"<< po.getPostID() << "|"<< po.getAuthor() << "|"<< po.getContent() << "|"<< po.timestamp << "\n";
+        txtFile << po.getAuthorID() << "|"
+                << po.getPostID() << "|"
+                << po.getAuthor() << "|"
+                << po.getContent() << "|"
+                << po.getLikesNo() << "\n";
     }
     txtFile.close();
 }
@@ -71,7 +74,11 @@ void file::insertData(const Post& post){
         return;
     }
 
-    txtFile<< post.getAuthorID() << "|"<< post.getPostID() << "|"<< post.getAuthor() << "|"<< post.getContent() << "|"<< post.timestamp << "\n";
+    txtFile << post.getAuthorID() << "|"
+            << post.getPostID() << "|"
+            << post.getAuthor() << "|"
+            << post.getContent() << "|"
+            << post.getLikesNo() << "\n";
     
     txtFile.close();
 }
