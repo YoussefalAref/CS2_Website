@@ -9,7 +9,7 @@
 
 class FriendshipManager{
 private:
-    AVLTree<std::string> FriendRequest;
+    std::vector<std::string> FriendRequestList;
 
 public:    
     FriendshipManager();

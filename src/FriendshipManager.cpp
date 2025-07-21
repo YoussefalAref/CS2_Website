@@ -1,4 +1,4 @@
-#include "FriendshipManager.h"
+#include "../Headers/FriendshipManager.h"
 #include <algorithm>
 
 FriendshipManager::FriendshipManager() {}
@@ -6,71 +6,30 @@ FriendshipManager::FriendshipManager() {}
 FriendshipManager::~FriendshipManager() {}
 
 bool FriendshipManager::sendRequest(User& fromUser, User& toUser) {
-    // Check if they're already friends
-    if (areFriends(fromUser, toUser)) {
-        return false;
-    }
-    
-    // Check if request already sent
-    auto sentRequests = fromUser.getSentRequests();
-    if (std::find(sentRequests.begin(), sentRequests.end(), toUser.getUsername()) != sentRequests.end()) {
-        return false;
-    }
-    
-    // Check if there's already a pending request from the other user
-    auto pendingRequests = toUser.getPendingRequests();
-    if (std::find(pendingRequests.begin(), pendingRequests.end(), fromUser.getUsername()) != pendingRequests.end()) {
-        return false;
-    }
-    
-    // Send the request - update both users
-    bool senderSuccess = fromUser.sendFriendRequest(toUser.getUsername());
-    if (senderSuccess) {
-        toUser.addPendingRequest(fromUser.getUsername());
-    }
-    
-    return senderSuccess;
+    if (areFriends(fromUser, toUser)) return false;
+    std::string req = fromUser.getUsername() + "->" + toUser.getUsername();
+    if (std::find(FriendRequestList.begin(), FriendRequestList.end(), req) != FriendRequestList.end())
+        return false; // Already requested
+    FriendRequestList.push_back(req);
+    return true;
 }
 
 bool FriendshipManager::acceptRequest(User& fromUser, User& toUser) {
-    // Check if there's a pending request from fromUser to toUser
-    auto pendingRequests = toUser.getPendingRequests();
-    auto it = std::find(pendingRequests.begin(), pendingRequests.end(), fromUser.getUsername());
-    
-    if (it == pendingRequests.end()) {
-        return false; // No pending request found
-    }
-    
-    // Accept the request
-    bool success = toUser.acceptFriendRequest(fromUser.getUsername());
-    
-    if (success) {
-        // Add the reverse friendship
-        fromUser.addFriend(toUser.getUsername());
-        
-        // Clean up sender's sent requests
-        fromUser.cancelSentRequest(toUser.getUsername());
-    }
-    
-    return success;
+    std::string req = fromUser.getUsername() + "->" + toUser.getUsername();
+    auto it = std::find(FriendRequestList.begin(), FriendRequestList.end(), req);
+    if (it == FriendRequestList.end()) return false; // No such request
+    FriendRequestList.erase(it);
+    fromUser.addFriend(toUser.getUsername());
+    toUser.addFriend(fromUser.getUsername());
+    return true;
 }
 
 bool FriendshipManager::cancelRequest(User& fromUser, User& toUser) {
-    // Check if request was sent from fromUser to toUser
-    auto sentRequests = fromUser.getSentRequests();
-    auto it = std::find(sentRequests.begin(), sentRequests.end(), toUser.getUsername());
-    
-    if (it == sentRequests.end()) {
-        return false; // No sent request found
-    }
-    
-    // Cancel the request from both sides
-    bool senderSuccess = fromUser.cancelSentRequest(toUser.getUsername());
-    if (senderSuccess) {
-        toUser.removePendingRequest(fromUser.getUsername());
-    }
-    
-    return senderSuccess;
+    std::string req = fromUser.getUsername() + "->" + toUser.getUsername();
+    auto it = std::find(FriendRequestList.begin(), FriendRequestList.end(), req);
+    if (it == FriendRequestList.end()) return false;
+    FriendRequestList.erase(it);
+    return true;
 }
 
 std::vector<std::string> FriendshipManager::viewFriends(const User& user) {
@@ -86,10 +45,17 @@ bool FriendshipManager::areFriends(const User& user1, const User& user2) {
 }
 
 int FriendshipManager::getMutualFriendsCount(const User& user1, const User& user2) {
-    auto mutualFriends = getMutualFriends(user1, user2);
-    return mutualFriends.size();
+    return getMutualFriends(user1, user2).size();
 }
 
 std::vector<std::string> FriendshipManager::getMutualFriends(const User& user1, const User& user2) {
-    return user1.getMutualFriends(user2);
+    std::vector<std::string> mutual;
+    auto friends1 = user1.getFriendsList();
+    auto friends2 = user2.getFriendsList();
+    for (const auto& f : friends1) {
+        if (std::find(friends2.begin(), friends2.end(), f) != friends2.end()) {
+            mutual.push_back(f);
+        }
+    }
+    return mutual;
 }
