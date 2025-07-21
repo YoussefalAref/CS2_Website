@@ -6,7 +6,7 @@
 #include <chrono>
 #include <memory>
 #include "postmanager.h"
-#include "AVLTree.h"
+// #include "AVLTree.h"
 
 class Post;
 class Comment;
@@ -15,30 +15,28 @@ class User{
 private:
     std::string username;
     size_t hashedPassword;
-    std::chrono::system_clock::time_point lastActive;
-    bool isActive;
+    PostManager postmanager;
+    int userId;
 
-    AVLTree<std::string> friendsAVL;
+
+    // AVLTree<std::string> friends;
     std::vector<std::shared_ptr<Post>> userPosts;
     std::vector<std::string> pendingRequests;
     std::vector<std::string> sentRequests;
 
     static size_t hashPassword(const std::string& password);
     bool addFriend(const std::string& friendUsername);//for testing user can only send a request
-    PostManager postmanager;
-    int userId;
 
 public:
     User(int _userId, const std::string& uname, const std::string& password);
+    User(int _userId, const std::string& uname, size_t passwordHash);
     ~User();
     User(): postmanager(0) {} // Default constructor for empty user;
     bool checkPassword(const std::string& password) const;
-    void addfriend(User* friendName);
-    bool hasFriend(const std::string& username);
-    void displayFriends() const;
-    string getUsername() const { return username; }
-
-//     void changePassword(const std::string& oldPassword, const std::string& newPassword);
+    std::string getUsername() const;
+    size_t gethashedPassword() const;
+    int getUserId() const;
+    //     void changePassword(const std::string& oldPassword, const std::string& newPassword);
 
 //     void setEmail(const std::string& email);
 //     void setLastActive();

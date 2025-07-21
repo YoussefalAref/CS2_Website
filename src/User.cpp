@@ -14,9 +14,10 @@ post logic
 #include "AVLTree.h"
 
 User::User(int _userId, const std::string& uname, const std::string& password)
-    : userId(_userId), username(uname), hashedPassword(hashPassword(password)),
-      lastActive(std::chrono::system_clock::now()),
-      isActive(true), postmanager(_userId){}
+    : userId(_userId), username(uname), hashedPassword(hashPassword(password)), postmanager(_userId) {}
+
+User::User(int _userId, const std::string& uname, size_t passwordHash)
+    : userId(_userId), username(uname), hashedPassword(passwordHash), postmanager(_userId) {}
 
 User::~User() {}
 
@@ -25,23 +26,34 @@ size_t User::hashPassword(const std::string& password) {
     return hasher(password);
 }
 
+std::string User::getUsername() const {
+    return username;
+}
+size_t User::gethashedPassword() const {
+    return hashedPassword;
+}
+int User::getUserId() const {
+    return userId;
+}
+
+
 bool User::checkPassword(const std::string& password) const {
     return hashedPassword == hashPassword(password);
 }
 
-void User::addfriend(User* friendName) {
-    if (friendName && friendName->getUsername() != username) {
-        friendsAVL.addFriend(friendName->getUsername());
-    }
-}
+// void User::addfriend(User* friendName) {
+//     if (friendName && friendName->getUsername() != username) {
+//         friendsAVL.addFriend(friendName->getUsername());
+//     }
+// }
 
-bool User::hasFriend(const std::string& username) {
-    return friendsAVL.isfriend(username);
-}
+// bool User::hasFriend(const std::string& username) {
+//     return friendsAVL.isfriend(username);
+// }
 
-void User::displayFriends() const {
-    friendsAVL.showAllFriends();
-}
+// void User::displayFriends() const {
+//     friendsAVL.showAllFriends();
+// }
 // void User::changePassword(const std::string& oldPassword, const std::string& newPassword){
 //     if (checkPassword(oldPassword))
 //         hashedPassword = hashPassword(newPassword);

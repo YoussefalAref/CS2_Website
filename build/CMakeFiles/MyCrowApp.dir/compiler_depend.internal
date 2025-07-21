@@ -3,7 +3,6 @@
 
 CMakeFiles/MyCrowApp.dir/main.cpp.o
  /home/youssefalaref/Desktop/CS2_Website/main.cpp
- /home/youssefalaref/Desktop/CS2_Website/Headers/AVLTree.h
  /home/youssefalaref/Desktop/CS2_Website/Headers/AuthManager.h
  /home/youssefalaref/Desktop/CS2_Website/Headers/DatabaseManager.h
  /home/youssefalaref/Desktop/CS2_Website/Headers/User.h
@@ -910,7 +909,6 @@ CMakeFiles/MyCrowApp.dir/main.cpp.o
 
 CMakeFiles/MyCrowApp.dir/src/AuthManager.cpp.o
  /home/youssefalaref/Desktop/CS2_Website/src/AuthManager.cpp
- /home/youssefalaref/Desktop/CS2_Website/Headers/AVLTree.h
  /home/youssefalaref/Desktop/CS2_Website/Headers/AuthManager.h
  /home/youssefalaref/Desktop/CS2_Website/Headers/DatabaseManager.h
  /home/youssefalaref/Desktop/CS2_Website/Headers/User.h
@@ -1818,8 +1816,10 @@ CMakeFiles/MyCrowApp.dir/src/AuthManager.cpp.o
 CMakeFiles/MyCrowApp.dir/src/DatabaseManager.cpp.o
  /home/youssefalaref/Desktop/CS2_Website/src/DatabaseManager.cpp
  /home/youssefalaref/Desktop/CS2_Website/Headers/DatabaseManager.h
+ /home/youssefalaref/Desktop/CS2_Website/Headers/User.h
  /home/youssefalaref/Desktop/CS2_Website/Headers/comment.h
  /home/youssefalaref/Desktop/CS2_Website/Headers/post.h
+ /home/youssefalaref/Desktop/CS2_Website/Headers/postmanager.h
  /usr/include/alloca.h
  /usr/include/arpa/inet.h
  /usr/include/asio.hpp

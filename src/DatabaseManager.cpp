@@ -1,62 +1,61 @@
 #include "DatabaseManager.h"
 #include <sstream> 
 #include <exception> 
+#include "User.h"
 #include <stdexcept>
 #include <filesystem>
 using namespace std;
 
-//posts:
-vector<Post> file:: retrieveData() const{
-
+// =============== POSTS ===============
+vector<Post> file::retrieveData() const {
     vector<Post> posts;
-
     filesystem::path file_path = filesystem::absolute("../txtFiles/posts.csv");
     ifstream txtFile(file_path);
 
-     if (!txtFile.is_open()) {
-        cerr << "Error opening file for reading\n";
+    if (!txtFile.is_open()) {
+        cerr << "Error opening posts file for reading\n";
         return posts;
     }
 
     string line;
-while(getline(txtFile,line)){
-    if (line.empty()) continue;
-    vector<string>fields;
-    istringstream lineStream(line);
-    string field;
-    
-    while (getline(lineStream, field, '|')) {
-        fields.push_back(field);
-    }
+    while (getline(txtFile, line)) {
+        if (line.empty()) continue;
+        vector<string> fields;
+        istringstream lineStream(line);
+        string field;
+        
+        while (getline(lineStream, field, '|')) {
+            fields.push_back(field);
+        }
 
-    if (fields.size() < 5) {
-        cerr << "Invalid line format: " << line << endl;
-        continue;
+        if (fields.size() < 5) {
+            cerr << "Invalid post line: " << line << endl;
+            continue;
+        }
+        try {
+            posts.emplace_back(
+                stoi(fields[0]),  // authorId
+                stoi(fields[1]),  // postId
+                fields[2],        // author
+                fields[3],        // content
+                stoi(fields[4])   // likesNo
+            );
+        } catch (const exception& e) {
+            cerr << "Error processing post: " << line << " - " << e.what() << endl;
+        }
     }
-    try {
-        int authorId = stoi(fields[0]);
-        int postId = stoi(fields[1]);
-        string author = fields[2];
-        string content = fields[3];
-        int likesNo = stoi(fields[4]);
-        posts.emplace_back(authorId, postId, author, content, likesNo);
-    } catch (const exception& e) {
-        cerr << "Error processing line: " << line << " - " << e.what() << endl;
-    }
-    }
-
     txtFile.close();
     return posts;
 }
 
-void file::fillData(const vector<Post>& posts){
-    filesystem::path file_path = filesystem::absolute("../textFiles/posts.csv");
+void file::fillData(const vector<Post>& posts) {
+    filesystem::path file_path = filesystem::absolute("../txtFiles/posts.csv");
     ofstream txtFile(file_path);
     if (!txtFile.is_open()) {
-        cerr << "Error opening file for writing\n";
+        cerr << "Error opening posts file for writing\n";
         return;
     }
-    for(const Post& po : posts){
+    for (const Post& po : posts) {
         txtFile << po.getAuthorID() << "|"
                 << po.getPostID() << "|"
                 << po.getAuthor() << "|"
@@ -66,33 +65,29 @@ void file::fillData(const vector<Post>& posts){
     txtFile.close();
 }
 
-void file::insertData(const Post& post){
+void file::insertData(const Post& post) {
     filesystem::path file_path = filesystem::absolute("../txtFiles/posts.csv");
     ofstream txtFile(file_path, ios::app);
-     if (!txtFile.is_open()) {
-        cerr << "Error opening file for appending\n";
+    if (!txtFile.is_open()) {
+        cerr << "Error opening posts file for appending\n";
         return;
     }
-
     txtFile << post.getAuthorID() << "|"
             << post.getPostID() << "|"
             << post.getAuthor() << "|"
             << post.getContent() << "|"
             << post.getLikesNo() << "\n";
-    
     txtFile.close();
 }
 
-
-
-//users:
-map<int, User> file::retrieveUsers() const {
-    map<int, User> users;
-    filesystem::path file_path = filesystem::absolute("../textFiles/users.csv");
+// =============== USERS ===============
+unordered_map<string, User> file::retrieveUsers() const {
+    unordered_map<string, User> users;
+    filesystem::path file_path = filesystem::absolute("../txtFiles/users.csv");
     ifstream txtFile(file_path);
 
     if (!txtFile.is_open()) {
-        cerr << "Error opening file for reading\n";
+        cerr << "Error opening users file for reading\n";
         return users;
     }
 
@@ -107,50 +102,48 @@ map<int, User> file::retrieveUsers() const {
             fields.push_back(field);
         }
 
-        if (fields.size() < 4) {
-            cerr << "Invalid line format: " << line << endl;
+        if (fields.size() < 3) {
+            cerr << "Invalid user line: " << line << endl;
             continue;
         }
-
         try {
             int userId = stoi(fields[0]);
             string username = fields[1];
-            string email = fields[2];
-            size_t hashedPassword = stoull(fields[3]);
-            users.emplace(userId, User(userId, username, hashedPassword, email));
+            size_t hashedPassword = stoull(fields[2]);
+            users.try_emplace(username, userId, username, hashedPassword);
         } catch (const exception& e) {
-            cerr << "Error processing line: " << line << " - " << e.what() << endl;
+            cerr << "Error processing user: " << line << " - " << e.what() << endl;
         }
     }
-
     txtFile.close();
     return users;
 }
 
-void file::fillUsers(const map<int, User>& users) {
-    filesystem::path file_path = filesystem::absolute("../textFiles/users.csv");
+void file::fillUsers(const unordered_map<string, User>& users) {
+    filesystem::path file_path = filesystem::absolute("../txtFiles/users.csv");
     ofstream txtFile(file_path);
     if (!txtFile.is_open()) {
-        cerr << "Error opening file for writing\n";
+        cerr << "Error opening users file for writing\n";
         return;
     }
-
-    for (const auto& [userId, user] : users) {
-        txtFile << userId << "|" << user.getUsername() << "|" << user.getEmail() << "|" << user.getHashedPassword() << "\n";
+    for (const auto& pair : users) {
+        const User& user = pair.second;
+        txtFile << user.getUserId() << "|"
+                << user.getUsername() << "|"
+                << user.gethashedPassword() << "\n";
     }
-
     txtFile.close();
 }
 
 void file::insertUser(const User& user) {
-    filesystem::path file_path = filesystem::absolute("../textFiles/users.csv");
+    filesystem::path file_path = filesystem::absolute("../txtFiles/users.csv");
     ofstream txtFile(file_path, ios::app);
     if (!txtFile.is_open()) {
-        cerr << "Error opening file for appending\n";
+        cerr << "Error opening users file for appending\n";
         return;
     }
-
-    txtFile << user.getUserId() << "|" << user.getUsername() << "|" << user.getEmail() << "|" << user.getHashedPassword() << "\n";
-    
+    txtFile << user.getUserId() << "|"
+            << user.getUsername() << "|"
+            << user.gethashedPassword() << "\n";
     txtFile.close();
 }

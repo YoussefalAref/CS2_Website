@@ -184,15 +184,16 @@ CMakeFiles/MyCrowApp.dir/src/DatabaseManager.cpp.o: \
  /usr/include/c++/13/bits/unique_ptr.h \
  /usr/include/c++/13/ext/aligned_buffer.h \
  /usr/include/c++/13/bits/fs_dir.h /usr/include/c++/13/bits/fs_ops.h \
- /usr/local/include/crow.h /usr/local/include/crow/query_string.h \
- /usr/include/string.h /usr/include/strings.h \
  /usr/include/c++/13/unordered_map \
  /usr/include/c++/13/bits/unordered_map.h \
  /usr/include/c++/13/bits/hashtable.h \
  /usr/include/c++/13/bits/hashtable_policy.h \
  /usr/include/c++/13/bits/enable_special_members.h \
  /usr/include/c++/13/bits/node_handle.h \
- /usr/include/c++/13/bits/erase_if.h /usr/include/c++/13/memory \
+ /usr/include/c++/13/bits/erase_if.h \
+ /home/youssefalaref/Desktop/CS2_Website/Headers/post.h \
+ /usr/local/include/crow.h /usr/local/include/crow/query_string.h \
+ /usr/include/string.h /usr/include/strings.h /usr/include/c++/13/memory \
  /usr/include/c++/13/bits/stl_tempbuf.h \
  /usr/include/c++/13/bits/stl_raw_storage_iter.h \
  /usr/include/c++/13/bits/align.h \
@@ -857,5 +858,6 @@ CMakeFiles/MyCrowApp.dir/src/DatabaseManager.cpp.o: \
  /usr/local/include/crow/http_server.h /usr/local/include/crow/version.h \
  /usr/local/include/crow/app.h /usr/include/c++/13/thread \
  /usr/include/c++/13/bits/this_thread_sleep.h \
- /home/youssefalaref/Desktop/CS2_Website/Headers/post.h \
- /home/youssefalaref/Desktop/CS2_Website/Headers/comment.h
+ /home/youssefalaref/Desktop/CS2_Website/Headers/comment.h \
+ /home/youssefalaref/Desktop/CS2_Website/Headers/User.h \
+ /home/youssefalaref/Desktop/CS2_Website/Headers/postmanager.h

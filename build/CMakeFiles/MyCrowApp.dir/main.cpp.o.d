@@ -862,5 +862,4 @@ CMakeFiles/MyCrowApp.dir/main.cpp.o: \
  /home/youssefalaref/Desktop/CS2_Website/./Headers/postmanager.h \
  /home/youssefalaref/Desktop/CS2_Website/./Headers/post.h \
  /home/youssefalaref/Desktop/CS2_Website/./Headers/comment.h \
- /home/youssefalaref/Desktop/CS2_Website/./Headers/DatabaseManager.h \
- /home/youssefalaref/Desktop/CS2_Website/./Headers/AVLTree.h
+ /home/youssefalaref/Desktop/CS2_Website/./Headers/DatabaseManager.h

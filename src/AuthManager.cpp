@@ -5,7 +5,9 @@
 
 
 AuthManager::AuthManager(){
-    file dbManager();
+    file dbManager;
+    users = dbManager.retrieveUsers();
+    cout<<users.size();//for debugging  // Load users from the database
     // fill the users data in the map to authenticate the users
 }
 
@@ -22,9 +24,10 @@ std::string AuthManager::generateToken() {
 
 bool AuthManager::registerUser(const std::string& uname, const std::string& password) {
     std::lock_guard<std::mutex> lock(data_mutex);
-    if (users.count(uname)) return false;
+    if (users.count(uname))return false;
     int newId = users.size();
-    users.emplace(uname, User(newId, uname, password));
+    users.try_emplace(uname, newId, uname, password);
+    dbManager.insertUser(users[uname]); // Save the new user to the database
     return true;
 }
 

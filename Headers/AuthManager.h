@@ -5,12 +5,15 @@
 #include "crow.h"
 #include "User.h"
 
+class file; // Forward declaration for DatabaseManager
+
 
 class AuthManager {
 private:
     std::unordered_map<std::string, std::string> sessions;
     std::mutex data_mutex;
     std::string generateToken();
+    file dbManager; // Instance of DatabaseManager to handle user data
 public:
     AuthManager();
     std::unordered_map<std::string, User> users; // key is username
