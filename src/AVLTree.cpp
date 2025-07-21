@@ -15,7 +15,7 @@ void AVLTree::newHeight(Friend* node){
             node->height = 1 + std::max(getHeight(node->left), getHeight(node->right));
     }
 
-Friend* AVLTree:: rotateRight(Friend* y) {
+AVLTree::Friend* AVLTree::rotateRight(Friend* y) {
         Friend* x = y->left;
         Friend* Temp = x->right;
         x->right = y;
@@ -25,7 +25,7 @@ Friend* AVLTree:: rotateRight(Friend* y) {
         return x;
     }
 
-Friend* AVLTree::rotateLeft(Friend* x) {
+AVLTree::Friend* AVLTree::rotateLeft(Friend* x) {
         Friend* y = x->right;
         Friend* T2= y->left;
         y->left = x;
@@ -35,7 +35,7 @@ Friend* AVLTree::rotateLeft(Friend* x) {
         return y;
     }
 
-Friend* AVLTree::balance(Friend* node){
+AVLTree::Friend* AVLTree::balance(Friend* node){
         if(!node) return nullptr;
 
         newHeight(node);
@@ -61,7 +61,7 @@ void AVLTree::destroyTree(Friend* node) {
             delete node;
         }
     }
-Friend* AVLTree:: insert(Friend* node, const std::string& name) {
+AVLTree::Friend* AVLTree:: insert(Friend* node, const std::string& name) {
         if (!node) {
             return new Friend(name);
         }
@@ -76,7 +76,7 @@ Friend* AVLTree:: insert(Friend* node, const std::string& name) {
         return balance(node);
     }   
 
-Friend* AVLTree::Friend* node, const std::string& name) const {
+AVLTree::Friend* AVLTree::search(Friend* node, const std::string& name) const {
         if (!node || node->name == name) {
             return node;
         }
@@ -90,9 +90,65 @@ Friend* AVLTree::Friend* node, const std::string& name) const {
 void AVLTree::addFriend(const std::string& name) {
         root = insert(root, name);
     }
-
+AVLTree::Friend* AVLTree::findMin(Friend* node) {
+            while (node && node->left) {
+                node = node->left;
+            }
+            return node;
+        }
 bool AVLTree::isfriend(const std::string& name) const {
-        return search(root, name) != nullptr;
+            return search(root, name) != nullptr;
+        }
+AVLTree::Friend* AVLTree::removeFriend(Friend* root,const std::string& name) {
+     if (!root) return root;
+        if(name<root->name){
+            root->left = removeFriend(root->left, name);
+        }
+        else if(name>root->name){
+            root->right = removeFriend(root->right, name);
+        }
+        else{
+            if(!root->left && !root->right){
+                delete root;
+                root = nullptr;
+            }
+            else if(!root->left){
+                Friend* temp = root;
+                root = root->right;
+                delete temp;
+            }
+            else if(!root->right){
+                Friend* temp = root;
+                root = root->left;
+                delete temp;
+            }
+            else{
+                Friend* temp = findMin(root->right);
+                root->name = temp->name;
+                root->right = removeFriend(root->right, temp->name);
+            }
+        }
+
+        if (!root) return root;
+        newHeight(root);
+        balance(root);
+
+        if (balanceFactor(root) > 1 && balanceFactor(root->left) >= 0){
+            return rotateRight(root);}
+        
+        if (balanceFactor(root)< -1 && balanceFactor(root->right) <= 0){
+            return rotateLeft(root);}
+        
+        if (balanceFactor(root) > 1 && balanceFactor(root->left) < 0) {
+            root->left = rotateLeft(root->left);
+            return rotateRight(root);
+        }
+        if (balanceFactor(root) < -1 && balanceFactor(root->right) > 0) {
+            root->right = rotateRight(root->right);
+            return rotateLeft(root);
+        }
+        
+        return root;
     }
 
 void AVLTree::displayFriends(Friend* node) const {

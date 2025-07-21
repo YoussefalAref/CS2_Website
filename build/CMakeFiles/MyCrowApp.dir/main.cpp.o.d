@@ -1,5 +1,5 @@
 CMakeFiles/MyCrowApp.dir/main.cpp.o: \
- /home/youssefalaref/Desktop/CS2_Website/main.cpp \
+ /home/janayasser/Desktop/Repos/CS2_Website/main.cpp \
  /usr/include/stdc-predef.h /usr/local/include/crow.h \
  /usr/local/include/crow/query_string.h /usr/include/stdio.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
@@ -857,9 +857,9 @@ CMakeFiles/MyCrowApp.dir/main.cpp.o: \
  /usr/local/include/crow/http_server.h /usr/local/include/crow/version.h \
  /usr/local/include/crow/app.h /usr/include/c++/13/thread \
  /usr/include/c++/13/bits/this_thread_sleep.h \
- /home/youssefalaref/Desktop/CS2_Website/./Headers/AuthManager.h \
- /home/youssefalaref/Desktop/CS2_Website/./Headers/User.h \
- /home/youssefalaref/Desktop/CS2_Website/./Headers/postmanager.h \
- /home/youssefalaref/Desktop/CS2_Website/./Headers/post.h \
- /home/youssefalaref/Desktop/CS2_Website/./Headers/comment.h \
- /home/youssefalaref/Desktop/CS2_Website/./Headers/DatabaseManager.h
+ /home/janayasser/Desktop/Repos/CS2_Website/./Headers/AuthManager.h \
+ /home/janayasser/Desktop/Repos/CS2_Website/./Headers/User.h \
+ /home/janayasser/Desktop/Repos/CS2_Website/./Headers/postmanager.h \
+ /home/janayasser/Desktop/Repos/CS2_Website/./Headers/post.h \
+ /home/janayasser/Desktop/Repos/CS2_Website/./Headers/comment.h \
+ /home/janayasser/Desktop/Repos/CS2_Website/./Headers/DatabaseManager.h

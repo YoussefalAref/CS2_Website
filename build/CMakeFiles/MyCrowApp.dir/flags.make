@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = -DASIO_NO_DEPRECATED -DASIO_STANDALONE
 
-CXX_INCLUDES = -I/home/youssefalaref/Desktop/CS2_Website/Headers
+CXX_INCLUDES = -I/home/janayasser/Desktop/Repos/CS2_Website/Headers
 
 CXX_FLAGS = -std=gnu++17 -Wall -Wextra -Wpedantic
 

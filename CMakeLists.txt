@@ -21,6 +21,7 @@ src/DatabaseManager.cpp
 src/post.cpp
 src/postmanager.cpp
 src/User.cpp
+src/AVLTree.cpp
 )
 
 

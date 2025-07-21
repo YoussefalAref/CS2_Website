@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/youssefalaref/Desktop/CS2_Website
+CMAKE_SOURCE_DIR = /home/janayasser/Desktop/Repos/CS2_Website
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/youssefalaref/Desktop/CS2_Website/build
+CMAKE_BINARY_DIR = /home/janayasser/Desktop/Repos/CS2_Website/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -132,9 +132,9 @@ install/strip/fast: preinstall/fast
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/youssefalaref/Desktop/CS2_Website/build/CMakeFiles /home/youssefalaref/Desktop/CS2_Website/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/janayasser/Desktop/Repos/CS2_Website/build/CMakeFiles /home/janayasser/Desktop/Repos/CS2_Website/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/youssefalaref/Desktop/CS2_Website/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/janayasser/Desktop/Repos/CS2_Website/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -197,6 +197,30 @@ main.s: main.cpp.s
 main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyCrowApp.dir/build.make CMakeFiles/MyCrowApp.dir/main.cpp.s
 .PHONY : main.cpp.s
+
+src/AVLTree.o: src/AVLTree.cpp.o
+.PHONY : src/AVLTree.o
+
+# target to build an object file
+src/AVLTree.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyCrowApp.dir/build.make CMakeFiles/MyCrowApp.dir/src/AVLTree.cpp.o
+.PHONY : src/AVLTree.cpp.o
+
+src/AVLTree.i: src/AVLTree.cpp.i
+.PHONY : src/AVLTree.i
+
+# target to preprocess a source file
+src/AVLTree.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyCrowApp.dir/build.make CMakeFiles/MyCrowApp.dir/src/AVLTree.cpp.i
+.PHONY : src/AVLTree.cpp.i
+
+src/AVLTree.s: src/AVLTree.cpp.s
+.PHONY : src/AVLTree.s
+
+# target to generate assembly for a file
+src/AVLTree.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyCrowApp.dir/build.make CMakeFiles/MyCrowApp.dir/src/AVLTree.cpp.s
+.PHONY : src/AVLTree.cpp.s
 
 src/AuthManager.o: src/AuthManager.cpp.o
 .PHONY : src/AuthManager.o
@@ -334,6 +358,9 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... src/AVLTree.o"
+	@echo "... src/AVLTree.i"
+	@echo "... src/AVLTree.s"
 	@echo "... src/AuthManager.o"
 	@echo "... src/AuthManager.i"
 	@echo "... src/AuthManager.s"
