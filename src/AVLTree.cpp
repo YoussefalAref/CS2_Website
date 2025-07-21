@@ -1,14 +1,9 @@
 #ifndef AVLTREE_H
 #define AVLTREE_H
-
-#include <vector>
-#include <algorithm>
-#include <iostream>
-#include <string>
 #include "AVLTree.h"
 
 int AVLTree::getHeight(Friend* node) const{
-        return node ? node->height : 0;
+        return (node ? node->height : 0);
 }
 
 int AVLTree::balanceFactor(Friend* node) const{
@@ -30,16 +25,13 @@ Friend* AVLTree:: rotateRight(Friend* y) {
         return x;
     }
 
-Friend* AVLTree::(Friend* x) {
+Friend* AVLTree::rotateLeft(Friend* x) {
         Friend* y = x->right;
-        Friend = y->left;
-
+        Friend* T2= y->left;
         y->left = x;
         x->right = T2;
-
         newHeight(x);
         newHeight(y);
-
         return y;
     }
 
@@ -114,3 +106,4 @@ void AVLTree::displayFriends(Friend* node) const {
 void AVLTree::showAllFriends() const {
         displayFriends(root);
     }
+#endif
