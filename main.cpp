@@ -185,14 +185,14 @@ int main()
         return res;
     });
 
+
     // Dashboard endpoint
     CROW_ROUTE(app, "/dashboard").methods("GET"_method)
     ([auth](const crow::request& req) {
         crow::response res;
 
         try {
-            
-            string token= auth->token_authentication(req);
+            string token = auth->token_authentication(req);
             if (token.empty()) {
                 res.code = 401;
                 res.set_header("WWW-Authenticate", "Bearer");
@@ -202,10 +202,18 @@ int main()
 
             string* username = auth->getUsernameFromToken(token);
             if (username != nullptr) {
-                res.code = 200;
-                res.set_header("Content-Type", "text/plain");
-                
-                res.write("Welcome, " + *username + "!");
+                // Read the dashboard.html file
+                std::ifstream file("../static/dashboard.html"); // Adjust path as needed
+                if (file) {
+                    std::string content((std::istreambuf_iterator<char>(file)), 
+                                    std::istreambuf_iterator<char>());
+                    res.code = 200;
+                    res.set_header("Content-Type", "text/html");
+                    res.write(content);
+                } else {
+                    res.code = 404;
+                    res.write("Dashboard file not found");
+                }
             } else {
                 res.code = 401;
                 res.set_header("WWW-Authenticate", "Bearer");

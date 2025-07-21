@@ -86,7 +86,7 @@ void file::insertData(const Post& post){
 
 
 //users:
-ap<int, User> file::retrieveUsers() const {
+map<int, User> file::retrieveUsers() const {
     map<int, User> users;
     filesystem::path file_path = filesystem::absolute("../textFiles/users.csv");
     ifstream txtFile(file_path);

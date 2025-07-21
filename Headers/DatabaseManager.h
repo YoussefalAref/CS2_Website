@@ -9,7 +9,7 @@
 #include "post.h"
 #include "User.h"
 #include <map>
-#include <sstream
+#include <sstream>
 
 using namespace std;
 
@@ -29,5 +29,5 @@ class file{
         void fillUsers(const map<int, User>& users);
         void insertUser(const User& user);
 
-        file(){}
+        file();
 };

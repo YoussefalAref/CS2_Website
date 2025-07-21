@@ -18,7 +18,7 @@ private:
     std::chrono::system_clock::time_point lastActive;
     bool isActive;
 
-    AVLTree<std::string> friends;
+    AVLTree<std::string> friendsAVL;
     std::vector<std::shared_ptr<Post>> userPosts;
     std::vector<std::string> pendingRequests;
     std::vector<std::string> sentRequests;
@@ -36,6 +36,8 @@ public:
     void addfriend(User* friendName);
     bool hasFriend(const std::string& username);
     void displayFriends() const;
+    string getUsername() const { return username; }
+
 //     void changePassword(const std::string& oldPassword, const std::string& newPassword);
 
 //     void setEmail(const std::string& email);
