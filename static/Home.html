@@ -317,7 +317,7 @@ content{
         <container class="posts">
             <div class="post publish">
                 <textarea name="" id="" placeholder="Think about something ?"></textarea>
-                <div class="btn button" style="">Publish</div>
+                <div class="btn button" onclick="Publish(this.parentNode.querySelector('textarea').value)">Publish</div>
             </div>
             <div class="post">
                 <div class="userInfo">
@@ -366,8 +366,59 @@ content{
             </div>
         </container>
     </content>
-    <script src="script.js">
-
+    <script>
+        function $(d){
+            return document.querySelector($)
+        }
+        function LoadPosts(){
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("GET", `[replace with API link شيل البراكيتس كمان]?email=${localStorage[UserEmail]}`);
+            xhttp.send();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    Posts = JSON.parse(responseText);
+                    Posts.forEach(element => {
+                        $("posts").innerHTML = "";
+                        $("posts").innerHTML += `
+                        <div class="post">
+                <div class="userInfo">
+                    <span class="user">
+                        <img style="height:100%;width:100%;" src="https://picsum.photos/200/300?random=4">
+                        <!-- <i class="fa-solid fa-user"></i>  -->
+                    </span>
+                    <p>${element.username}</p>
+                    
+                </div>
+                <p x-content>
+                    ${element.content}
+                </p>
+                <div class="navPost">
+                    <div>
+                        <span>0</span>
+                        <i class="fa-solid fa-thumbs-up"></i>
+                    </div>
+                    <div>
+                        <span>0</span>
+                        <i class="fa-solid fa-comment"></i>
+                    </div>
+                </div>
+            </div>
+                        `;
+                    });
+                }
+            };
+        }
+        function Publish(d){
+            console.log(d)
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("GET", `[replace with API link شيل البراكيتس كمان]?content=${d}&email=${localStorage[UserEmail]}`);
+            xhttp.send();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    window.location.reload(false);
+                }
+            };
+        }
     </script>
 </body>
 </html>
