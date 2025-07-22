@@ -1,7 +1,7 @@
 #include "FriendshipManager.h"
 #include "DatabaseManager.h"
 #include <algorithm>
-
+#include "User.h"
 FriendshipManager::FriendshipManager() {}
 
 FriendshipManager::~FriendshipManager() {}

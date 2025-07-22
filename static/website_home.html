@@ -406,7 +406,8 @@ loginForm.addEventListener('submit', async (e) => {
         if (data.success) {
             // Option 1: Store token in memory (for API requests)
             authToken = data.token;
-            localStorage[UserEmail] = loginEmail.value;
+            tmpMail= document.querySelector("#signup-email").value
+            localStorage["UserEmail"] = tmpMail;
             // Option 2: If using cookies, the token is already handled
             alert(`Welcome back, ${data.username}!`);
             

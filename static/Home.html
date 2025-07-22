@@ -223,6 +223,32 @@ content{
     }
 }
 .publish{
+    gap: 15px;
+            width:700px;
+            display: grid;
+            padding: 15px;
+            background: #FFF;
+            border-radius: 8px;
+            box-shadow: 0px 0px 2px rgba(110,100,111,.1);
+            .userInfo{
+                width:250px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                font-size: 12px;
+                font-weight: bold;
+                color:#555;
+            }
+            [x-content]{
+                font-size: 16px;
+            }
+            .navPost{
+                display: flex;
+                gap: 15px;
+                flex-direction: row-reverse;
+                color: #555;
+                font-size: 15px;
+            }
     display: flex !important;
     textarea{
         width: 100%;
@@ -237,7 +263,8 @@ content{
         display: inline;
     }
 }
-    </style>
+</style>
+
 </head>
 <body>
     <header>
@@ -261,8 +288,8 @@ content{
     </header>
     <content>
         <aside>
+            <h3>Friends Suggestions</h3><br>
             <div class="suggestions">
-                <h3>Friends Suggestions</h3>
                 <div class="sugesstion">
                     <span class="user">
                         <img style="height:100%;width:100%;" src="https://picsum.photos/200/300?random=1">
@@ -314,72 +341,31 @@ content{
                  -->
             </div>
         </aside>
-        <container class="posts">
+        <container class="">
             <div class="post publish">
                 <textarea name="" id="" placeholder="Think about something ?"></textarea>
-                <div class="btn button" onclick="Publish(this.parentNode.querySelector('textarea').value)">Publish</div>
-            </div>
-            <div class="post">
-                <div class="userInfo">
-                    <span class="user">
-                        <img style="height:100%;width:100%;" src="https://picsum.photos/200/300?random=4">
-                        <!-- <i class="fa-solid fa-user"></i>  -->
-                    </span>
-                    <p>Khedr Karaweta</p>
-                    
-                </div>
-                <p x-content>
-                    الحالة تعبانة مش قادرة .. بنكح تراب من فترة  طب نعمل ايه يا اسيادنا نسرق والا نبيع بوردة ؟
-                </p>
-                <div class="navPost">
-                    <div>
-                        <span>0</span>
-                        <i class="fa-solid fa-thumbs-up"></i>
-                    </div>
-                    <div>
-                        <span>0</span>
-                        <i class="fa-solid fa-comment"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="post">
-                <div class="userInfo">
-                    <span class="user">
-                        <img style="height:100%;width:100%;" src="https://picsum.photos/200/300?random=3">
-                        <!-- <i class="fa-solid fa-user"></i>  -->
-                    </span>
-                    <p>Othman Shesha</p>
-                </div>
-                <p x-content>
-                    يا عايقة يا رايقة فين البسمة وليه متضايقة ؟ غزال عسولة حلوة الهيئة 
-                </p>
-                <div class="navPost">
-                    <div>
-                        <span>0</span>
-                        <i class="fa-solid fa-thumbs-up"></i>
-                    </div>
-                    <div>
-                        <span>0</span>
-                        <i class="fa-solid fa-comment"></i>
-                    </div>
-                </div>
+<div class="btn button" onclick="Publish(this.parentNode.querySelector('textarea').value)">Publish</div>            </div>
+            <div class="posts">
             </div>
         </container>
+                    
+ 
     </content>
     <script>
         function $(d){
-            return document.querySelector($)
+            return document.querySelector(d)
         }
         function LoadPosts(){
             var xhttp = new XMLHttpRequest();
-            xhttp.open("GET", `[replace with API link شيل البراكيتس كمان]?email=${localStorage[UserEmail]}`);
+            xhttp.open("GET", `/api/posts/get`);
             xhttp.send();
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                    Posts = JSON.parse(responseText);
+                    Posts = JSON.parse(this.responseText);
+                    $(".posts").innerHTML = "";
                     Posts.forEach(element => {
-                        $("posts").innerHTML = "";
-                        $("posts").innerHTML += `
+                        Comments = element.comments;
+                        $(".posts").innerHTML += `
                         <div class="post">
                 <div class="userInfo">
                     <span class="user">
@@ -394,24 +380,58 @@ content{
                 </p>
                 <div class="navPost">
                     <div>
-                        <span>0</span>
-                        <i class="fa-solid fa-thumbs-up"></i>
+                        <span>${element.likes}</span>
+                        <i onclick='Like(${element.id}),this.parentNode.querySelector("span").innerHTML++' class="fa-solid fa-thumbs-up"></i>
                     </div>
                     <div>
                         <span>0</span>
                         <i class="fa-solid fa-comment"></i>
                     </div>
+
+                        
+                    </div>
                 </div>
+                <div style="display: flex;"> <textarea style="width:100%" name="" id=""></textarea> <button onclick="Comment(${element.id},this.parentNode.querySelector('textarea').value)">Comment</button> </div>
+                <div style="background:#eee; padding: 10px;" class="p${element.id}">
             </div>
                         `;
-                    });
+
+                        Comments.forEach(e=>{
+                            $(`.p${element.id}`).innerHTML += `
+                            <i><b><p style="font-size: 11px;" class="comment">${e}</p></b></i><br>`
+                        })
+
+                    }
+                
+                    
+                );
+                }
+            };
+        }
+        function Like(id){
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("GET", `/api/posts/like?id=${id}`);
+            xhttp.send();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    // window.location.reload(false);
+                }
+            };
+        }
+        function Comment(id,content){
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("GET", `/api/posts/comment?id=${id}&content=${content}`);
+            xhttp.send();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    // window.location.reload(false);
                 }
             };
         }
         function Publish(d){
             console.log(d)
             var xhttp = new XMLHttpRequest();
-            xhttp.open("GET", `[replace with API link شيل البراكيتس كمان]?content=${d}&email=${localStorage[UserEmail]}`);
+            xhttp.open("GET", `/api/posts/publish?content=${d}&email=${localStorage["UserEmail"]}`);
             xhttp.send();
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
@@ -419,6 +439,39 @@ content{
                 }
             };
         }
+        
+        function LoadUsers(){
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("GET", `/api/friends/suggestions/?username=${localStorage["UserEmail"]}`);
+            xhttp.send();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    $(".suggestions").innerHTML = "";
+                    Users = JSON.parse(this.responseText);
+                    Users.forEach(element => {
+                    $(".suggestions").innerHTML += `
+                    <div class="sugesstion">
+                        
+                        <span class="user">
+                            <img style="height:100%;width:100%;" src="https://picsum.photos/200/300?random=${element.id}">
+                            <!-- <i class="fa-solid fa-user"></i>  -->
+                        </span>
+                        <p>${element.email}</p>
+                        
+                        <div>
+                            <i class="fa-solid fa-user-plus"></i>
+                        </div>
+
+                    </div>`;
+
+                    })
+
+                }
+            };
+        }
+
+        setTimeout(()=>{LoadPosts()},100)
+
     </script>
 </body>
 </html>

@@ -9,12 +9,12 @@
 class AuthManager {
 private:
     std::unordered_map<std::string, std::string> sessions;
-    std::unordered_map<std::string, User> users;  // Moved to private
     std::mutex data_mutex;
     file dbManager;  // Correct type for database operations
     std::string generateToken();
-
-public:
+    
+    public:
+    std::unordered_map<std::string, User> users;  // Moved to private
     AuthManager();
     ~AuthManager();  // Destructor to save data on shutdown
 
