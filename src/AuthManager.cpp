@@ -3,12 +3,9 @@
 #include <random>
 #include <sstream>
 
-
 AuthManager::AuthManager(){
-    file dbManager;
-    users = dbManager.retrieveUsers();
-    cout<<users.size();//for debugging  // Load users from the database
-    // fill the users data in the map to authenticate the users
+    users = dbManager.retrieveUsers(); // This now loads users with their friends
+    cout << users.size(); // for debugging
 }
 
 std::string AuthManager::generateToken() {
@@ -21,12 +18,14 @@ std::string AuthManager::generateToken() {
     return ss.str();
 }
 
-
 bool AuthManager::registerUser(const std::string& uname, const std::string& password) {
     std::lock_guard<std::mutex> lock(data_mutex);
-    if (users.count(uname))return false;
-    int newId = users.size();
+    if (users.count(uname)) return false;
+    
+    int newId = users.size()+1;
     users.try_emplace(uname, newId, uname, password);
+    
+    file dbManager;
     dbManager.insertUser(users[uname]); // Save the new user to the database
     return true;
 }
@@ -55,7 +54,6 @@ std::string AuthManager::loginUser(const std::string& username, const std::strin
     return token;
 }
 
-
 std::string* AuthManager::getUsernameFromToken(const std::string& token) {
     std::lock_guard<std::mutex> lock(data_mutex);
     auto it = sessions.find(token);
@@ -63,4 +61,25 @@ std::string* AuthManager::getUsernameFromToken(const std::string& token) {
         return &it->second;
     }
     return nullptr;
+}
+
+// Add this method to get a user reference for friend operations
+User* AuthManager::getUser(const std::string& username) {
+    std::lock_guard<std::mutex> lock(data_mutex);
+    auto it = users.find(username);
+    if (it != users.end()) {
+        return &it->second;
+    }
+    return nullptr;
+}
+
+// Add this method to update user in memory after friend changes
+void AuthManager::updateUserInMemory(const User& user) {
+    std::lock_guard<std::mutex> lock(data_mutex);
+    users[user.getUsername()] = user;
+}
+
+AuthManager::~AuthManager() {
+    std::lock_guard<std::mutex> lock(data_mutex);
+    dbManager.fillUsers(users); // Save all users to the database on shutdown
 }

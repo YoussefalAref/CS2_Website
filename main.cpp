@@ -187,7 +187,7 @@ int main()
 
 
     // Dashboard endpoint
-    CROW_ROUTE(app, "/dashboard").methods("GET"_method)
+    CROW_ROUTE(app, "/Home").methods("GET"_method)
     ([auth](const crow::request& req) {
         crow::response res;
 
@@ -202,8 +202,8 @@ int main()
 
             string* username = auth->getUsernameFromToken(token);
             if (username != nullptr) {
-                // Read the dashboard.html file
-                std::ifstream file("../static/dashboard.html"); // Adjust path as needed
+                // Read the Home.html file
+                std::ifstream file("../static/Home.html"); // Adjust path as needed
                 if (file) {
                     std::string content((std::istreambuf_iterator<char>(file)), 
                                     std::istreambuf_iterator<char>());
@@ -212,7 +212,7 @@ int main()
                     res.write(content);
                 } else {
                     res.code = 404;
-                    res.write("Dashboard file not found");
+                    res.write("Home file not found");
                 }
             } else {
                 res.code = 401;
@@ -227,47 +227,47 @@ int main()
         return res;
     });
 
-    // Static file serving for assets
-    CROW_ROUTE(app, "/<string>")
-    ([](const crow::request& req, string filename) {
-        // Prevent directory traversal
-        if (filename.find("..") != string::npos) {
-            return crow::response(403, "Forbidden");
-        }
+    // // Static file serving for assets
+    // CROW_ROUTE(app, "/<string>")
+    // ([](const crow::request& req, string filename) {
+    //     // Prevent directory traversal
+    //     if (filename.find("..") != string::npos) {
+    //         return crow::response(403, "Forbidden");
+    //     }
 
-        // Default to index.html for frontend routes
-        if (filename.find('.') == string::npos) {
-            filename = std::filesystem::absolute("static/website_home.html").string();
-        } else {
-            filename = std::filesystem::absolute("static/" + filename).string();
-        }
+    //     // Default to index.html for frontend routes
+    //     if (filename.find('.') == string::npos) {
+    //         filename = std::filesystem::absolute("static/website_home.html").string();
+    //     } else {
+    //         filename = std::filesystem::absolute("static/" + filename).string();
+    //     }
 
-        try {
-            ifstream file(filename, ios::binary);
-            if (!file) {
-                return crow::response(404, "File not found: " + filename);
-            }
+    //     try {
+    //         ifstream file(filename, ios::binary);
+    //         if (!file) {
+    //             return crow::response(404, "File not found: " + filename);
+    //         }
 
-            string content((istreambuf_iterator<char>(file)), 
-                       istreambuf_iterator<char>());
+    //         string content((istreambuf_iterator<char>(file)), 
+    //                    istreambuf_iterator<char>());
             
-            crow::response res(content);
-            res.set_header("Content-Type", getMimeType(filename));
-            res.set_header("Cache-Control", "public, max-age=3600");
+    //         crow::response res(content);
+    //         res.set_header("Content-Type", getMimeType(filename));
+    //         res.set_header("Cache-Control", "public, max-age=3600");
             
-            // Security headers
-            res.set_header("X-Content-Type-Options", "nosniff");
+    //         // Security headers
+    //         res.set_header("X-Content-Type-Options", "nosniff");
             
-            // Relax CSP for development
-            if (filename.find(".html") != string::npos) {
-                res.set_header("Content-Security-Policy", "default-src * 'unsafe-inline' 'unsafe-eval'; style-src * 'unsafe-inline'; img-src * data:; font-src *;");
-            }
+    //         // Relax CSP for development
+    //         if (filename.find(".html") != string::npos) {
+    //             res.set_header("Content-Security-Policy", "default-src * 'unsafe-inline' 'unsafe-eval'; style-src * 'unsafe-inline'; img-src * data:; font-src *;");
+    //         }
             
-            return res;
-        } catch (const exception& e) {
-            return crow::response(500, string("Error loading file: ") + e.what());
-        }
-    });
+    //         return res;
+    //     } catch (const exception& e) {
+    //         return crow::response(500, string("Error loading file: ") + e.what());
+    //     }
+    // });
 
     app.port(18080).multithreaded().run();
 }

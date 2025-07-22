@@ -17,7 +17,7 @@ add_executable(${PROJECT_NAME} main.cpp
 src/AuthManager.cpp
 # src/comment.cpp
 src/DatabaseManager.cpp
-#src/FriendshipManager.cpp
+src/FriendshipManager.cpp
 src/post.cpp
 src/postmanager.cpp
 src/User.cpp

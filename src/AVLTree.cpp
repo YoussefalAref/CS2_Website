@@ -1,6 +1,5 @@
-#ifndef AVLTREE_H
-#define AVLTREE_H
 #include "AVLTree.h"
+#include "User.h"
 
 int AVLTree::getHeight(Friend* node) const{
         return (node ? node->height : 0);
@@ -162,4 +161,3 @@ void AVLTree::displayFriends(Friend* node) const {
 void AVLTree::showAllFriends() const {
         displayFriends(root);
     }
-#endif

@@ -1,31 +1,33 @@
 #ifndef FRIENDSHIPMANAGER_H
 #define FRIENDSHIPMANAGER_H
 
-#include <string>
 #include <vector>
-#include <memory>
+#include <string>
+
 #include "User.h"
-#include "AVLTree.h"
 
-class FriendshipManager{
+class FriendshipManager {
 private:
+    std::vector<std::string> FriendRequestList;
 
-public:    
-FriendshipManager();
-~FriendshipManager();
-
-bool sendRequest(User& fromUser, User& toUser);
-bool acceptRequest(User& fromUser, User& toUser);
-bool cancelRequest(User& fromUser, User& toUser);
-
-std::vector<std::string> viewFriends(const User& user);
-std::vector<std::string> suggestedFriends(const User& user, const std::vector<User>& allUsers);  // Fixed!
-
-bool areFriends(const User& user1, const User& user2);
-int getMutualFriendsCount(const User& user1, const User& user2);
-std::vector<std::string> getMutualFriends(const User& user1, const User& user2);
-
-
+public:
+    FriendshipManager();
+    ~FriendshipManager();
+    
+    // Friend request management
+    bool sendRequest(User& fromUser, User& toUser);
+    bool acceptRequest(User& fromUser, User& toUser);
+    bool cancelRequest(User& fromUser, User& toUser);
+    
+    // Friend management
+    bool removeFriendship(User& user1, User& user2);
+    std::vector<std::string> viewFriends(const User& user);
+    std::vector<std::string> suggestedFriends(const User& user, const std::vector<User>& allUsers);
+    
+    // Friend status checking
+    bool areFriends(const User& user1, const User& user2);
+    int getMutualFriendsCount(const User& user1, const User& user2);
+    std::vector<std::string> getMutualFriends(const User& user1, const User& user2);
 };
 
-#endif // FRIENDSHIPMANAGER_H (also fixed the endif)
+#endif

@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/janayasser/Desktop/Repos/CS2_Website
+CMAKE_SOURCE_DIR = /home/youssefalaref/Desktop/CS2_Website
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/janayasser/Desktop/Repos/CS2_Website/build
+CMAKE_BINARY_DIR = /home/youssefalaref/Desktop/CS2_Website/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -132,9 +132,9 @@ install/strip/fast: preinstall/fast
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/janayasser/Desktop/Repos/CS2_Website/build/CMakeFiles /home/janayasser/Desktop/Repos/CS2_Website/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/youssefalaref/Desktop/CS2_Website/build/CMakeFiles /home/youssefalaref/Desktop/CS2_Website/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/janayasser/Desktop/Repos/CS2_Website/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/youssefalaref/Desktop/CS2_Website/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -270,6 +270,30 @@ src/DatabaseManager.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyCrowApp.dir/build.make CMakeFiles/MyCrowApp.dir/src/DatabaseManager.cpp.s
 .PHONY : src/DatabaseManager.cpp.s
 
+src/FriendshipManager.o: src/FriendshipManager.cpp.o
+.PHONY : src/FriendshipManager.o
+
+# target to build an object file
+src/FriendshipManager.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyCrowApp.dir/build.make CMakeFiles/MyCrowApp.dir/src/FriendshipManager.cpp.o
+.PHONY : src/FriendshipManager.cpp.o
+
+src/FriendshipManager.i: src/FriendshipManager.cpp.i
+.PHONY : src/FriendshipManager.i
+
+# target to preprocess a source file
+src/FriendshipManager.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyCrowApp.dir/build.make CMakeFiles/MyCrowApp.dir/src/FriendshipManager.cpp.i
+.PHONY : src/FriendshipManager.cpp.i
+
+src/FriendshipManager.s: src/FriendshipManager.cpp.s
+.PHONY : src/FriendshipManager.s
+
+# target to generate assembly for a file
+src/FriendshipManager.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyCrowApp.dir/build.make CMakeFiles/MyCrowApp.dir/src/FriendshipManager.cpp.s
+.PHONY : src/FriendshipManager.cpp.s
+
 src/User.o: src/User.cpp.o
 .PHONY : src/User.o
 
@@ -367,6 +391,9 @@ help:
 	@echo "... src/DatabaseManager.o"
 	@echo "... src/DatabaseManager.i"
 	@echo "... src/DatabaseManager.s"
+	@echo "... src/FriendshipManager.o"
+	@echo "... src/FriendshipManager.i"
+	@echo "... src/FriendshipManager.s"
 	@echo "... src/User.o"
 	@echo "... src/User.i"
 	@echo "... src/User.s"

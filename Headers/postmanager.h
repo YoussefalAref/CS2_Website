@@ -3,7 +3,7 @@
 #include <string>
 #include "post.h"
 #include "crow.h"
-#include "DatabaseManager.h"
+#include "DatabaseManager.h"  // Include DatabaseManager header
 
 class PostManager {
 private:

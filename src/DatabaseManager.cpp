@@ -110,7 +110,16 @@ unordered_map<string, User> file::retrieveUsers() const {
             int userId = stoi(fields[0]);
             string username = fields[1];
             size_t hashedPassword = stoull(fields[2]);
-            users.try_emplace(username, userId, username, hashedPassword);
+            
+            // Create user with basic info
+            User user(userId, username, hashedPassword);
+            
+            // Load friends if present (backward compatibility - old files might not have friends)
+            if (fields.size() >= 4 && !fields[3].empty()) {
+                user.loadFriendsFromString(fields[3]);
+            }
+            
+            users.try_emplace(username, std::move(user));
         } catch (const exception& e) {
             cerr << "Error processing user: " << line << " - " << e.what() << endl;
         }
@@ -130,7 +139,8 @@ void file::fillUsers(const unordered_map<string, User>& users) {
         const User& user = pair.second;
         txtFile << user.getUserId() << "|"
                 << user.getUsername() << "|"
-                << user.gethashedPassword() << "\n";
+                << user.gethashedPassword() << "|"
+                << user.getFriendsAsString() << "\n";
     }
     txtFile.close();
 }
@@ -144,6 +154,14 @@ void file::insertUser(const User& user) {
     }
     txtFile << user.getUserId() << "|"
             << user.getUsername() << "|"
-            << user.gethashedPassword() << "\n";
+            << user.gethashedPassword() << "|"
+            << user.getFriendsAsString() << "\n";
     txtFile.close();
+}
+
+// New method to update a single user (useful when friends list changes)
+void file::updateUser(const User& user) {
+    unordered_map<string, User> allUsers = retrieveUsers();
+    allUsers[user.getUsername()] = user;
+    fillUsers(allUsers);
 }

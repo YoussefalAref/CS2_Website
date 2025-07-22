@@ -92,6 +92,10 @@
         "string_view": "cpp",
         "numbers": "cpp",
         "semaphore": "cpp",
-        "cinttypes": "cpp"
+        "cinttypes": "cpp",
+        "complex": "cpp",
+        "set": "cpp",
+        "unordered_set": "cpp",
+        "typeindex": "cpp"
     }
 }

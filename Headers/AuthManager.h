@@ -4,21 +4,26 @@
 #include <mutex>
 #include "crow.h"
 #include "User.h"
-
-class file; // Forward declaration for DatabaseManager
-
+#include "DatabaseManager.h"  // Include DatabaseManager header
 
 class AuthManager {
 private:
     std::unordered_map<std::string, std::string> sessions;
+    std::unordered_map<std::string, User> users;  // Moved to private
     std::mutex data_mutex;
+    file dbManager;  // Correct type for database operations
     std::string generateToken();
-    file dbManager; // Instance of DatabaseManager to handle user data
+
 public:
     AuthManager();
-    std::unordered_map<std::string, User> users; // key is username
+    ~AuthManager();  // Destructor to save data on shutdown
+
     bool registerUser(const std::string& uname, const std::string& password);
     std::string token_authentication(const crow::request& req);
     std::string loginUser(const std::string& username, const std::string& password);
     std::string* getUsernameFromToken(const std::string& token);
+    
+    // User management methods
+    User* getUser(const std::string& username);
+    void updateUserInMemory(const User& user);
 };

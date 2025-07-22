@@ -4,7 +4,8 @@
 #include <algorithm>
 #include <iostream>
 #include <string>
-#include "User.h"
+using namespace std;
+class User;
 class AVLTree {
 private:
     struct Friend{
@@ -14,8 +15,8 @@ private:
         int height;
         Friend(const std::string& n):name(n),left(nullptr), right(nullptr), height(1){}
     };
-    Friend* root;
     public:
+    Friend* root;
     int balanceFactor(Friend* node) const;
     int getHeight(Friend* node) const;
     void newHeight(Friend* node);
@@ -23,9 +24,9 @@ private:
     Friend* rotateLeft(Friend* x);
     Friend* balance(Friend* node);
     AVLTree() : root(nullptr) {}
-    AVLTree(const vector<User>& friends){
+    AVLTree(const vector<string>& friends){
         for (const auto& friendName : friends) {
-            root = insert(root, friendName.getUsername());
+            root = insert(root, friendName);
         }
     }
     ~AVLTree(){destroyTree(root);}

@@ -7,6 +7,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/MyCrowApp.dir/src/AuthManager.cpp.o.d"
   "CMakeFiles/MyCrowApp.dir/src/DatabaseManager.cpp.o"
   "CMakeFiles/MyCrowApp.dir/src/DatabaseManager.cpp.o.d"
+  "CMakeFiles/MyCrowApp.dir/src/FriendshipManager.cpp.o"
+  "CMakeFiles/MyCrowApp.dir/src/FriendshipManager.cpp.o.d"
   "CMakeFiles/MyCrowApp.dir/src/User.cpp.o"
   "CMakeFiles/MyCrowApp.dir/src/User.cpp.o.d"
   "CMakeFiles/MyCrowApp.dir/src/post.cpp.o"
